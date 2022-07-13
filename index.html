@@ -1,0 +1,153 @@
+
+<!-- 
+	memo: <a href="https://site.com">Texte sur le site</a> -> site externe, autre page du meme dossier, ancre, etc
+
+	tableau : voir detail dans résume (titre, etc)
+<table>
+   <tr>
+       <td> AAA</td>
+       <td> BBB </td>
+       <td> CCC </td>
+   </tr>
+   <tr>
+       <td> XXX </td>
+       <td> YYY </td>
+       <td> ZZZ </td>
+   </tr>
+</table>
+
+-->
+
+
+
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<link rel="stylesheet" type="text/css" href="styles.css">
+	<title>JustStreamIt</title>
+</head>
+
+
+<body>
+	<div id=blocPage>
+		<header>
+			<p class="logo">JustStreamIt</p>
+			<nav>
+				<a>Accueil</a>
+				<a>Catégories</a>
+			</nav>
+		</header>
+
+
+		<div class="best-movie-container"> <!--bloc-->
+			<div class="best-movie-container__movie-presentation-and-access"> <!--je voulais mettre un fond plutot qu'une image impliquant cette div, mais img plus facile pour interagir avec JS-->
+				<p id="bestMovie_Title">titre film</p>
+				<div class="button">
+					<p>bouton</p>
+				</div>
+				<p id="bestMovie_Summary">resume du film</p>
+			</div>
+			<img id="bestMovie_Picture" class = best-movie-container__movie-picture src="" alt="image du meilleur film" > 
+		</div>
+
+
+		<section class="movies-section">
+			<h1>Films les mieux notés</h1>
+			<div class="movies-section__button_and_pictures">
+				<div class="button-left">
+					<p>B</p>
+				</div>
+
+				<div class="movies-pictures-container">
+					<img id="best-movie_picture1" class = movie-picture src="image_de_film_factice_mini.png" alt="image de film">
+					<img id="best-movie_picture2" class = movie-picture src="image_de_film_factice_mini.png" alt="image de film">
+					<img id="best-movie_picture3" class = movie-picture src="image_de_film_factice_mini.png" alt="image de film">
+					<img id="best-movie_picture4" class = movie-picture src="image_de_film_factice_mini.png" alt="image de film">
+				</div>
+
+				<div class="button-right">
+					<p>B</p>
+				</div>
+			</div>
+		</section>
+
+
+		<section class="movies-section">
+			<h1>Categorie1</h1>
+			<div class="movies-section__button_and_pictures">
+				<div class="button-left">
+					<p>bouton</p>
+				</div>
+
+				<div class="movies-pictures-container">
+					<img class = movie-picture src="image_de_film_factice_mini.png" alt="image de film">
+					<img class = movie-picture src="image_de_film_factice_mini.png" alt="image de film">
+					<img class = movie-picture src="image_de_film_factice_mini.png" alt="image de film">
+					<img class = movie-picture src="image_de_film_factice_mini.png" alt="image de film">
+				</div>
+
+				<div class="button-right">
+					<p>bouton</p>
+				</div>
+			</div>
+		</section>
+
+
+		<section class="movies-section">
+			<h1>Categorie2</h1>
+			<div class="movies-section__button_and_pictures">
+				<div class="button-left">
+					<p>bouton</p>
+				</div>
+
+				<div class="movies-pictures-container">
+					<img class = movie-picture src="image_de_film_factice_mini.png" alt="image de film">
+					<img class = movie-picture src="image_de_film_factice_mini.png" alt="image de film">
+					<img class = movie-picture src="image_de_film_factice_mini.png" alt="image de film">
+					<img class = movie-picture src="image_de_film_factice_mini.png" alt="image de film">
+				</div>
+
+				<div class="button-right">
+					<p>bouton</p>
+				</div>
+			</div>
+		</section>
+
+
+		<section class="movies-section">
+			<h1>Categorie3</h1>
+			<div class="movies-section__button_and_pictures">
+				<div class="button-left">
+					<p>bouton</p>
+				</div>
+
+				<div class="movies-pictures-container">
+					<img class = movie-picture src="image_de_film_factice_mini.png" alt="image de film">
+					<img class = movie-picture src="image_de_film_factice_mini.png" alt="image de film">
+					<img class = movie-picture src="image_de_film_factice_mini.png" alt="image de film">
+					<img class = movie-picture src="image_de_film_factice_mini.png" alt="image de film">
+				</div>
+
+				<div class="button-right">
+					<p>bouton</p>
+				</div>
+			</div>
+		</section>
+
+
+
+		<p id="balise_test1">Ma balise test1</p>
+		<p id="balise_test2">Ma balise test2</p>
+		<p id="balise_test3">Ma balise test3</p>
+		<p id="balise_test4">Ma balise test4</p>
+		<p id="balise_test5">Ma balise test5</p>
+		<p id="balise_test6">Ma balise test6</p>
+		<p id="balise_test7">Ma balise test7</p>
+		<p id="balise_test8">Ma balise test8</p>
+		<p id="balise_test9">Ma balise test9</p>
+
+		<script type="text/javascript" src="./script.js"></script>
+	</div>
+</body>

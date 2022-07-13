@@ -1,0 +1,244 @@
+/*
+TO DO LIST : 
+Utilisez le responsive design (primordial !) avec les Media Queries
+--> modifier le flexbox horizontal par vertical
+
+Memo:
+si trop de texte dans un bloc : overflow : visible (par défaut)/ hidden (coupé)/ scroll 
+*/
+
+
+/* PLAN CSS FILE */
+/* 
+Fonts
+Main styles of the page : page width, page background color, flexbox primary blocs alignements, default font
+Header
+Best movie
+Movies categories (best, 1,2,3)
+Buttons
+*/
+
+/*_______________________________________________________________________________________________________________/*
+/*____CSS____/*
+
+
+/*_______________________________________________________________________________________________________________/*
+/* FONTS */
+
+@font-face {
+    font-family: 'lane_-_narrowregular';
+    src: url('polices/lane-narrow_regular_macroman/LANENAR_-webfont.eot');
+    src: url('polices/lane-narrow_regular_macroman/LANENAR_-webfont.eot?#iefix') format('embedded-opentype'),
+         url('polices/lane-narrow_regular_macroman/LANENAR_-webfont.woff2') format('woff2'),
+         url('polices/lane-narrow_regular_macroman/LANENAR_-webfont.woff') format('woff'),
+         url('polices/lane-narrow_regular_macroman/LANENAR_-webfont.ttf') format('truetype'),
+         url('polices/lane-narrow_regular_macroman/LANENAR_-webfont.svg#lane_-_narrowregular') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+
+/*_______________________________________________________________________________________________________________/*
+/* MAIN STYLES OF THE PAGE */
+
+/* Background color and size */
+body
+{
+    background-color: rgb(5, 5, 5);
+    background-size: 100%;
+}
+
+
+/* Alignement of primary blocs of the page */
+#blocPage
+{
+    display: flex;
+
+    /*Principal axis definition : flex-direction : row/ column/ row-reverse/ column-reverse*/
+    flex-direction: column;
+
+    /*-Allignement : */
+    /*--Principal axis : justify-content : flex-start/ flex-end/ center/ space-between/ space-around*/
+    justify-content: center;
+    /*--Secondary axis : align-items : stretch /flex-start /flex-end /center/baseline*/
+    align-items: center;
+
+    width: 100%;
+    padding: 0%;
+    margin: 0%;
+}
+
+
+header, .best-movie-container, .higher-rated-movies-section, .movies-section
+{
+    width: 100%;
+    margin: 0 px;
+    padding: 0 px; 
+
+    /*testing*/
+    /*border-width: 10 px;*/
+    /*border-color:  rgb(100,100,100);*/
+    /*border-style: solid*/
+}
+
+
+/*Default font*/
+*{
+    font-family: 'lane_-_narrowregular', georgia, sans-serif;
+    color: rgb(255, 255, 255);
+}
+
+
+/*_______________________________________________________________________________________________________________/*
+/*HEADER*/
+
+header
+{
+    display: flex;
+
+    /*Principal axis definition : flex-direction : row/ column/ row-reverse/ column-reverse*/
+    flex-direction: row;
+
+    /*-Allignement : */
+    /*--Principal axis : justify-content : flex-start/ flex-end/ center/ space-between/ space-around*/
+    justify-content: space-around;
+    /*--Secondary axis : align-items : stretch /flex-start /flex-end /center/baseline*/
+    align-items: center;
+
+    width: 100%;
+    background-color: rgb(10, 10, 10);
+}
+
+
+/*_______________________________________________________________________________________________________________/*
+/*BEST MOVIE*/
+
+.best-movie-container
+{
+    display: flex;
+    /*Principal axis definition : flex-direction : row/ column/ row-reverse/ column-reverse*/
+    flex-direction: row;
+
+    /*-Allignement : */
+    /*--Principal axis : justify-content : flex-start/ flex-end/ center/ space-between/ space-around*/
+    justify-content: space-between;
+    /*--Secondary axis : align-items : stretch /flex-start /flex-end /center/baseline*/
+    align-items: flex-end; /* ou  baseline ? */
+
+    /*petite marge pour le texte*/
+    width: 98%;
+    padding-left: 2%;
+
+    background-color: rgb(20, 20, 20);
+
+    /*Annulé: finalement l'image du meilleur film sera une balise img; plus facile d'interagir en JS avec*/
+    /*background-image: url("./image_de_film_factice_higher_rated_movie.png");*/
+    /*background-attachment: scroll;*/
+    /*background-repeat: no-repeat;*/
+    /*background-position: right top;*/
+    /*opacity: 75%;*/
+
+    border-width: 10 px;
+    border-color:  rgb(251, 255, 0);
+    border-style: solid;
+
+    height: 400px; /*sera réutilisé en JS*/
+
+/*    height: 300px;*/ /*METTRE LA HAUTEUR EN PIXEL DE L'IMAGE DU FILM*/
+}
+
+.best-movie-container__movie-presentation-and-access
+{
+    display: flex;
+
+    /*Principal axis definition : flex-direction : row/ column/ row-reverse/ column-reverse*/
+    flex-direction: column; 
+    /*-Allignement : */
+    /*--Principal axis : justify-content : flex-start/ flex-end/ center/ space-between/ space-around*/
+    justify-content: space-between;
+    /*--Secondary axis : align-items : stretch /flex-start /flex-end /center/baseline*/
+    align-items: flex-start; /* ou  baseline ? */
+
+    border-width: 10 px;
+    border-color:  rgb(255, 196, 0);
+    border-style: solid;
+
+}
+
+#bestMovie_Title{
+    font-size: 2.5em;
+}
+
+#bestMovie_Summary{
+    font-size: 1.4em;
+}
+
+/*_______________________________________________________________________________________________________________/*
+/*MOVIES CATEGORIES*/
+
+.movies-section
+{
+    margin-top: 50px;
+}
+
+.movies-section__button_and_pictures
+{
+    display: flex;
+
+    /*Principal axis definition : flex-direction : row/ column/ row-reverse/ column-reverse*/
+    flex-direction: row;
+
+    /*-Allignement : */
+    /*--Principal axis : justify-content : flex-start/ flex-end/ center/ space-between/ space-around*/
+    justify-content: space-between;
+    /*--Secondary axis : align-items : stretch /flex-start /flex-end /center/baseline*/
+    align-items: center; /* ou  baseline ? */
+
+    width: 100%;
+
+    background-color: rgb(61, 61, 61);
+
+    border-width: 10 px;
+    border-color:  rgb(0, 255, 0);
+    border-style: solid;
+}
+
+
+/*_______________________________________________________________________________________________________________/*
+/*BUTTONS*/
+
+.button-left, .button-right
+{
+    width: 10%; /*(100-80)/ 2*/
+
+    border-width: 10 px;
+    border-color:  rgb(212, 0, 255);
+    border-style: solid;
+}
+
+
+.movies-pictures-container
+{
+    width: 80%; /*100/6=16.66*/
+
+    display: flex;
+
+    /*Principal axis definition : flex-direction : row/ column/ row-reverse/ column-reverse*/
+    flex-direction: row;
+
+    /*-Allignement : */
+    /*--Principal axis : justify-content : flex-start/ flex-end/ center/ space-between/ space-around*/
+    justify-content: space-between;
+    /*--Secondary axis : align-items : stretch /flex-start /flex-end /center/baseline*/
+    align-items: flex-start; /* ou  baseline ? */
+
+    width: 90%; /*pour garder le bouton de droite visible : 100 - 10% */
+
+    background-color: rgb(0, 0, 0);
+
+    border-width: 10 px;
+    border-color:  rgb(0, 17, 255);
+    border-style: solid;
+
+    flex-wrap: nowrap;
+}
