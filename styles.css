@@ -84,7 +84,7 @@ header, .best-movie-container, .higher-rated-movies-section, .movies-section
 
 /*Default font*/
 *{
-    font-family: 'lane_-_narrowregular', georgia, sans-serif;
+    font-family: georgia, sans-serif; /* i delte 'lane_-_narrowregular' --> bug in console*/
     color: rgb(255, 255, 255);
 }
 
