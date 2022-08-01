@@ -5,7 +5,7 @@ const numberOfMoviesInACaroussel = 7
 const numberOfMoviesDisplayedInACaroussel = 4
 
 //POUR L'IMAGE DU MEILLEUR FILM
-//Récupérer le film qui a la meilleur note Imdb parmi tous les films
+//Récupérer le film qui a la meilleure note Imdb parmi tous les films
 //-->récupérer son titre et le résumé du film
 //-->remplacer l'HTML 'titre film' par le nom du film; pareil pour le résumé du film; pareil pour la photo
 
@@ -25,8 +25,8 @@ const numberOfMoviesDisplayedInACaroussel = 4
 
 // Fetch va nous renvoyer une Promise. Pour faire simple : la Promise est un objet qui fournit 
 // une fonction then qui sera exécutée quand le résultat aura été obtenu, et 
-//une fonction catch qui sera appelée s’il y a une erreur qui est survenue lors de la requête
-//rappel : à chaque promise : si c'est ok, le prochain bloc '.then' s'éxécute, sinon c'est le prochain bloc "catch" qui s'éxécute
+// une fonction catch qui sera appelée s’il y a une erreur qui est survenue lors de la requête
+// rappel : à chaque promise : si c'est ok, le prochain bloc '.then' s'éxécute, sinon c'est le prochain bloc "catch" qui s'éxécute
 
 //function fonctionDuCours(){
 //fetch("https://mockbin.com/request")
@@ -134,82 +134,213 @@ function bestMovieFetching() {
 
 
 
-let nonSortedCategoryUrl = "http://127.0.0.1:8000/api/v1/titles/" //ou autre (celle d"une catégorie par exemple)
-
-let sortingCategorySuffixe = "sort_by=-imdb_score" // ne bougera pas, on veut toujours les 7 meilleurs films
-
-let pageCategoryUrl = "" //or ="page=2&"
-let CategoryUrlToBeFetched_page1 = `${nonSortedCategoryUrl}${pageCategoryUrl}?${sortingCategorySuffixe}`
-
-pageCategoryUrl = "page=2&"
-let CategoryUrlToBeFetched_page2 = `${nonSortedCategoryUrl}${pageCategoryUrl}?${sortingCategorySuffixe}`
-
-
 
 //dernière idée/compréhension que j'ai : Définir une fonction qui fetch; l'éxécuter deux fois au sein de promise.all()
 //on travaillera le tableau des résultats dans la fonction promise.all
 
-let movies_JS_objects_list = [] // // rôle : regrouper les données (tout) de films issus de plusieurs pages ; pour cela, je fois visiter l'url du film
+//let movies_JS_objects_list = [] // // rôle : regrouper les données (tout) de films issus de plusieurs pages ; pour cela, je fois visiter l'url du film
 
-function get_seven_best_movies_urls_from_an_API_category_URL(CategoryUrlToBeFetched_page1){
-	console.log(CategoryUrlToBeFetched_page1)
-	//This function Fetch the 2 first pages of a category
+//function get_best_movies_information_from_an_API_category_page_URL_in_a_list(CategoryUrlToBeFetched){
+//
+//	//console.log("Category Url To Be Fetched" + CategoryUrlToBeFetched)
+//
+//	fetch(CategoryUrlToBeFetched) 
+//
+//	.then(function(res) {
+//		if (res.ok) {
+//			return res.json();
+//		}
+//	})
+//	
+//	.then(function(value) {
+//		//Manipulation of value of the fetch result from the first page to fetch
+//
+//		//RECUPERATION OF THE 5 FILMS OF THE FIRST FETCH AS JS OBJECTS
+//		for (let movieIndexOnCategoryPage = 0; movieIndexOnCategoryPage < numberOfMoviesOnAnAPIPage; movieIndexOnCategoryPage++){ // 0,1,2,3,4 : OK
+//			//FILMS OBJECTS
+//			let movie_JS_object = value.results[movieIndexOnCategoryPage]
+//			movies_JS_objects_list.unshift(movie_JS_object)
+//
+//			//FILMS URLs
+//			//let movie_url = value.results[movieIndexOnCategoryPage].url
+//			//movies_urls_list.unshift(movie_url) 
+//
+//		}
+//		//console.log("fetch results : movies as JS objects list "+movies_JS_objects_list)
+//		//console.log("fetch results : movie as JS object : ID "+movies_JS_objects_list[0].id)
+//
+//		return value
+//	})
+//
+//	
+//	.catch(function(err) {
+//		// code qui s'éxécute si une erreur est survenue
+//		console.log("ERROR in get_best_movies_information_from_an_API_category_page_URL_in_a_list() function")
+//	});
+//}
 
-	//let movies_urls_list = [] // rôle : regrouper les données (l'url) de films issus de plusieurs pages ; on utilisera la fonction push() ou unshift() pour ajouter un élément à la fin/au début du tableau et popo pour supprimer le dernier élément
 
-	//FIRST FETCH
-	fetch(CategoryUrlToBeFetched_page1) 
 
-	.then(function(res) {
-		if (res.ok) {
-			return res.json();
-		}
-	})
+
+async function MultiFetchingForACategory(genreToFetch, prefix_of_the_HtmlElements_IDs_for_a_category_carroussel){ // genre = "" --> all movies
+	let movies_JS_objects_list = []
 	
-	.then(function(value) {
-		//Manipulation of value of the fetch result from the first page to fetch
-
+	let response = await Promise.all([ 
+		//.then((value)=> value.json()) correspond à :
+			//.then(function(res) {
+			//	if (res.ok) {
+			//		return res.json();
+			//	}
+			//})
 		
-		//RECUPERATION OF THE 5 FILMS OF THE FIRST FETCH AS JS OBJECTS
-		for (let movieIndexOnCategoryPage = 0; movieIndexOnCategoryPage < numberOfMoviesOnAnAPIPage; movieIndexOnCategoryPage++){ // 0,1,2,3,4 : OK
-			//FILMS OBJECTS
-			let movie_JS_object = value.results[movieIndexOnCategoryPage]
-			movies_JS_objects_list.unshift(movie_JS_object)
+		//version initiale :
+		//fetch("http://127.0.0.1:8000/api/v1/titles/?sort_by=-imdb_score&genre="+genreToFetch).then((value)=> value.json())
+		fetch("http://127.0.0.1:8000/api/v1/titles/?sort_by=-imdb_score&genre="+genreToFetch)
+		.then((value)=> value.json())
+		.catch(function(err) {console.log("ERROR in get_best_movies_information_from_an_API_category_page_URL_in_a_list() function")})
+		, 
+		fetch("http://127.0.0.1:8000/api/v1/titles/?sort_by=-imdb_score&genre="+genreToFetch+"&page=2")
+		.then((value)=> value.json())
+		.catch(function(err) {console.log("ERROR in get_best_movies_information_from_an_API_category_page_URL_in_a_list() function")})
+	])
+	//console.log(response) // j'ai bel et bien un tableau avec les informations qui m'interessent ici !
+	//console.log(response[0].results) // j'ai bel et bien un tableau avec les informations qui m'interessent ici ! 
+	//console.log(response[0].results[0])
+	//console.log(response[0].results[1])
 
-			//FILMS URLs
-			//let movie_url = value.results[movieIndexOnCategoryPage].url
-			//movies_urls_list.unshift(movie_url) 
+	//console.log(response[1].results) 
 
+	//boucle a faire : pour chaque élément du tableau 'response'; puis pour chaque élément de tableau result (au sein de l'élément response) : unshifter la table mytable
+	for (let i in response){
+		//console.log(i) // for each API page which has been fetched
+		for (let j in response[i].results){
+			//console.log("page "+i+" movie "+j) // for each movie of each API page which has been fetched
+			movies_JS_objects_list.unshift(response[i].results[j])
 		}
-		console.log(" fetch results : movies as JS objects"+movies_JS_objects_list)
-		//console.log(" fetch results : movies urls"+movies_urls_list)
-		return movies_JS_objects_list
-	})
+	}
 
-	
-	.catch(function(err) {
-		// code qui s'éxécute si une erreur est survenue
-		console.log("ERROR in get_seven_best_movies_urls_from_an_API_category_URL() function")
-	});
+	movies_JS_objects_list.sort((a, b) => a.imdb_score - b.imdb_score)
+	movies_JS_objects_list.reverse()
+
+
+	for (let movies_JS_object of movies_JS_objects_list){
+		//console.log(movies_JS_object.id +" "+ movies_JS_object.imdb_score)
+		carousselPicturesUpdate_AfterButtonClick(prefix_of_the_HtmlElements_IDs_for_a_category_carroussel, movies_JS_objects_list)
+	}
+
+	console.log(movies_JS_objects_list) //RESUME HERE !
+
 }
 
 
+//reprendre ici : pour décaler les images du caroussel , je vais rappeler les fonctions ci dessous apres écoute d'un évènement : jouer avec la variable 'CarousselLag'
+//je pourrai meme simplifier je pense, afin d'éviter de fetch à chaque fois. mais ca implique de sortir le tableau des films hors de la promise.all et des fetch, et cela je n'essaie plus !
+//donc se concenter de ré-éxécuter les fonctiosn ci dessous : ) !
+MultiFetchingForACategory("", "best-movie_picture")
+MultiFetchingForACategory("action", "category1_picture")
+MultiFetchingForACategory("comedy", "category2_picture")
+MultiFetchingForACategory("fantasy", "category3_picture")
 
-function MultiFetchingForACategory(){
-	//Check that several promises has been solved; does not functions as I understood (so i put a 2000ms delay)
-	Promise.all([get_seven_best_movies_urls_from_an_API_category_URL("http://127.0.0.1:8000/api/v1/titles/?sort_by=-imdb_score"), get_seven_best_movies_urls_from_an_API_category_URL("http://127.0.0.1:8000/api/v1/titles/?page=2&sort_by=-imdb_score")])
 
-		//NOT SURE THAT THIS THEN IS MANDATORY	
-		.then(function(results) {
-			console.log("got multifetching 'results' as promises ?" + results)
-			//return Promise.all([results])
-		})
-		
-		.then(function(allResults) {
-			console.log("got multifetching 'all results' as promises ?" + allResults)
-			//console.log(movies_JS_objects_list) // List of ten first movies; great ! But not in the array which is empty : I guess it is a question of asynchronicity 
-	 		//console.log("mytable length " +movies_JS_objects_list.length)	// = 0 : ?	
-		})
+
+//===TEST : DOES NOT WORK===//
+///function fetching(url){
+///	let a = 1
+//	fetch(url) 
+//	.then(function(res) {
+//		if (res.ok) {
+//			return res.json();
+//		}
+//	})
+//	.then(function(data) {
+//		console.log("ok")
+//		a=2
+//		return a
+//	})
+//	.catch(function(err) {
+//		// code qui s'éxécute si une erreur est survenue
+//		return "ERROR "
+//	});
+//	//return "test out of .then"
+//}
+
+//const1 = fetch("http://127.0.0.1:8000/api/v1/titles/?sort_by=-imdb_score&genre=")
+//const2 = fetch("http://127.0.0.1:8000/api/v1/titles/?sort_by=-imdb_score&genre=&page=2")
+
+//Promise.all([const1, const2])
+//	.then((values) => {
+//	console.log("understanding promise.all")
+//	console.log(values) // j'ai les réponses des fetchs
+//});
+//=================================//
+
+// TEST : WORKS ! //
+async function testing_2022_08_01(){
+	mytable = []
+	
+	let response = await Promise.all([ // c'est l'await qui manquait !
+		fetch("http://127.0.0.1:8000/api/v1/titles/?sort_by=-imdb_score&genre=").then((value)=> value.json()), 
+		fetch("http://127.0.0.1:8000/api/v1/titles/?sort_by=-imdb_score&genre=&page=2").then((value)=> value.json())
+	])
+	console.log(response) // j'ai bel et bien un tableau avec les informations qui m'interessent ici !
+	console.log(response[0].results) // j'ai bel et bien un tableau avec les informations qui m'interessent ici ! 
+	console.log(response[0].results[0])
+	console.log(response[0].results[1])
+
+	console.log(response[1].results) 
+
+	mytable.unshift(response[0].results[0])
+	mytable.unshift(response[0].results[1])
+	mytable.unshift(response[1].results[0])
+	mytable.unshift(response[1].results[1])
+
+	console.log(mytable)
+	console.log(mytable[0].id)
+
+}
+
+//testing_2022_08_01()
+
+
+
+
+
+
+
+//function youtube(){
+//	let youtube1 = fetch("http://127.0.0.1:8000/api/v1/titles/?sort_by=-imdb_score&genre=");
+//	let youtube2 = fetch("http://127.0.0.1:8000/api/v1/titles/?sort_by=-imdb_score&genre=&page=2");
+//	array_of_promises = [youtube1, youtube2]
+//	Promise.all(array_of_promises) //ici ce sont des réponses et on va appeler une méthode pour passer en json
+//	.then(files => { //executé une fois que les promesess sont ok
+//		files.forEach(file => {
+//			process (file.json());
+//		})
+//		//files[0].json() // c'est toujours une promesse.
+//		//files[1].json()
+//	}
+//	)
+//	.catch(err => {
+//
+//	});
+//
+//	let process = (promess) => {
+//		promess.then(data => {
+//			console.log("data"+data)
+//		})
+//	}
+//}
+//youtube()
+
+
+function carousselPicturesUpdate_AfterButtonClick(prefix_of_the_HtmlElements_IDs_for_a_category_carroussel, category_movies_JS_objects_list){
+	//Raplaces pictures of a given caroussel
+	CarousselLag = 0 	//lag = décalage
+
+	for (let PicturePositionInCarroussel = 0; PicturePositionInCarroussel < numberOfMoviesDisplayedInACaroussel ; PicturePositionInCarroussel++){ //numberOfMoviesDisplayedInACaroussel = 4 
+		let JS_movie_picture = document.getElementById(`${prefix_of_the_HtmlElements_IDs_for_a_category_carroussel}${PicturePositionInCarroussel}`); // --> on cherche best-movie_picture0, best-movie_picture1, etc
+		JS_movie_picture.src = category_movies_JS_objects_list[PicturePositionInCarroussel+CarousselLag].image_url
+	}
 }
 
 
@@ -221,18 +352,19 @@ function MultiFetchingForACategory(){
 function main(){
 	bestMovieFetching()
 	//get_seven_best_movies_urls_from_an_API_category_URL("http://127.0.0.1:8000/api/v1/titles/?sort_by=-imdb_score")
-	MultiFetchingForACategory()
 
-	setTimeout(function() { //attend 2000 ms avant d'afficher le tableau, pour s'assurer qu'il est rempli; j'aurai préféré attendre que les promesses soient toutes ok, mais ça ne semble pas marcher comme je l'entends : /
-		console.log(movies_JS_objects_list)
-		let movieTest = movies_JS_objects_list[0]
-		console.log(movieTest.id)  // j'affiche bel et bien un ID : YES !!!
-	}, 2000);
+	//MultiFetchingForACategory("") // genre = "" --> all movies
+	//a transformer en fonction dédiée; je passerai le tableau à cette fonction
+	//setTimeout(function() { //attend 1000 ms avant d'afficher le tableau, pour s'assurer qu'il est rempli; j'aurai préféré attendre que les promesses soient toutes ok, mais ça ne semble pas marcher comme je l'entends : /
+	//	//let movieTest = movies_JS_objects_list[0]
+	//	//console.log(movieTest.id)  // j'affiche bel et bien un ID : YES !
+	//	movies_JS_objects_list.sort((a, b) => a.imdb_score - b.imdb_score)
+	//	movies_JS_objects_list.reverse()
+		//console.log(movies_JS_objects_list)
+	//	carousselPicturesUpdate_AfterButtonClick("best-movie_picture", movies_JS_objects_list)
+	//}, 1000);
 
-	//REPRENDRE ICI : DEPART EN VACANCES !!!
-	//to be done: sorting by imdbscore ! ;
-	//ensuite, je dois utilise le code ci dessous --> récupérer chaque url de film en parcourant le tableau, fetcher chaque url pour avoir les infos sur chaque film, etc
-	//j'ai déja le code pour remplacer les images, etc
+
 }
 
 main()
@@ -241,10 +373,10 @@ main()
 //===========================================
 
 
-//CODE PRE MACHE pour remplacement d'images, etc : D
+//CODE PRé MACHé pour remplacement d'images, etc : D
 
 
-//code de remplacement d'image
+//code de remplacement d'image : voir ci dessous: version fonction et factorisé
 		//let button_lag_for_carroussel = 0 //sera modifié lorsque l'on clique sur un bouton; ajouter condition if pour que cette variable ne soit pas <0 ou > nombre de films enregistrés (7) - nombre de flms dans caroussel (3)
 		//test pour voir ou je dois placer le code remplacant les images
 		//let JS_best_movie_picture1 = document.getElementById('best-movie_picture0');
@@ -258,7 +390,9 @@ main()
 
 
 
-		//VERSION NON FACTORISEE ici je travaille avec l'URL de la prochaine page; j'avais un return value.next
+
+
+		//VERSION NON FACTORISEE pour fetcher : ici je travaille avec l'URL de la prochaine page; j'avais un return value.next
 		//.then(function(nextUrl) {
 		//	console.log(nextUrl)
 		//	
@@ -326,44 +460,34 @@ main()
 
 //FONCTION POUR AUTOMATISER LE CHANGEMENT D'IMAGES DU CARROUSSEL ; 
 //note : ici j'ai une table d'adresses url d'images; on pourra simplement utiliser une table qui conteient TOUTES les infos des films et récupérer l'url de l'image : D!
-let newPictureUrlTableTEST = ["image_de_film_factice_higher_rated_movie.png", "image_de_film_factice_higher_rated_movie2.png"]
+//let newPictureUrlTableTEST = ["image_de_film_factice_higher_rated_movie.png", "image_de_film_factice_higher_rated_movie2.png"]
 
-function carousselLagingAfterButtonClick(HtmlElementsIdPrefix, newPictureUrlTable){ 
-	//lag = décalage
-	CarousselLag = 1
-	for (let PicturePositionInCarroussel = 0; PicturePositionInCarroussel < numberOfMoviesDisplayedInACaroussel ; PicturePositionInCarroussel++){ //numberOfMoviesDisplayedInACaroussel = 4 
-		let JS_best_movie_picture = document.getElementById(`${HtmlElementsIdPrefix}${PicturePositionInCarroussel}`); // --> on cherche best-movie_picture1, best-movie_picture2, etc
-		console.log(JS_best_movie_picture)
-		JS_best_movie_picture.src = newPictureUrlTable[PicturePositionInCarroussel+CarousselLag]
-	}
-}
+//function carousselLagingAfterButtonClick(HtmlElementsIdPrefix, newPictureUrlTable){ 
+//	//lag = décalage
+//	CarousselLag = 1
+//	for (let PicturePositionInCarroussel = 0; PicturePositionInCarroussel < numberOfMoviesDisplayedInACaroussel ; PicturePositionInCarroussel++){ //numberOfMoviesDisplayedInACaroussel = 4 
+//		let JS_best_movie_picture = document.getElementById(`${HtmlElementsIdPrefix}${PicturePositionInCarroussel}`); // --> on cherche best-movie_picture1, best-movie_picture2, etc
+//		console.log(JS_best_movie_picture)
+//		JS_best_movie_picture.src = newPictureUrlTable[PicturePositionInCarroussel+CarousselLag]
+//	}
+//}
 //carousselLagingAfterButtonClick("category1_picture", newPictureUrlTableTEST)
 
 
 
 
 
-
-
-
-//ici je vais avoir du fetch et je vais appeler mes fonctions ci dessous ! qu'il faudra peut etre mettre au dessus du coup ^^ ca sera pratique parceque je vais faire une boucle; 
+//je vais avoir du fetch et je vais appeler mes fonctions ci dessous ! qu'il faudra peut etre mettre au dessus du coup ^^ ca sera pratique parceque je vais faire une boucle; 
 //histoire de compléter les 4 images d'un coup (et du coup toutes les pages html dédiées à chaque film (1;2;3;4 : pour chaque catégorie))
-
-
 
 //note: ce quil fait : https://www.youtube.com/watch?v=nYY3IQWSUWY
 //ajuste la taille du container à 800px * nombre d'images
 //créé les 5 images et les intègre dans des divs, dans le container avec la classe "photo"
 //sauf que j'ai plusieurs items; je reste sur mon idée mais je garde en tete
 
-
-
-
-
 function get_a_movie_picture_url_from_movie_at_json_format(movie_url){
 	
 }
-
 
 function get_a_movie_title_from_movie_at_json_format(){
 	
@@ -372,6 +496,7 @@ function get_a_movie_title_from_movie_at_json_format(){
 function get_a_movie_year_from_movie_at_json_format(){
 		
 }
+//etc.....
 
 
 //________________________________________________________
