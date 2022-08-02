@@ -4,6 +4,12 @@ const numberOfMoviesOnAnAPIPage = 5
 const numberOfMoviesInACaroussel = 7
 const numberOfMoviesDisplayedInACaroussel = 4
 
+
+
+let CarousselLag_value_bestMovies = [0] // table: reference is passed, and not only the value --> for caroussel function
+let CarousselLag_value_category1 = [0]
+let CarousselLag_value_category2 = [0]
+let CarousselLag_value_category3 = [0]
 //POUR L'IMAGE DU MEILLEUR FILM
 //Récupérer le film qui a la meilleure note Imdb parmi tous les films
 //-->récupérer son titre et le résumé du film
@@ -182,7 +188,7 @@ function bestMovieFetching() {
 
 
 
-async function MultiFetchingForACategory(genreToFetch, prefix_of_the_HtmlElements_IDs_for_a_category_carroussel){ // genre = "" --> all movies
+async function MultiFetchingForACategory(CarousselLag, genreToFetch, prefix_of_the_HtmlElements_IDs_for_a_category_carroussel){ // genre = "" --> all movies
 	let movies_JS_objects_list = []
 	
 	let response = await Promise.all([ 
@@ -225,7 +231,7 @@ async function MultiFetchingForACategory(genreToFetch, prefix_of_the_HtmlElement
 
 	for (let movies_JS_object of movies_JS_objects_list){
 		//console.log(movies_JS_object.id +" "+ movies_JS_object.imdb_score)
-		carousselPicturesUpdate_AfterButtonClick(prefix_of_the_HtmlElements_IDs_for_a_category_carroussel, movies_JS_objects_list)
+		carousselPicturesUpdate_AfterButtonClick(CarousselLag, prefix_of_the_HtmlElements_IDs_for_a_category_carroussel, movies_JS_objects_list)
 	}
 
 	console.log(movies_JS_objects_list) //RESUME HERE !
@@ -236,11 +242,159 @@ async function MultiFetchingForACategory(genreToFetch, prefix_of_the_HtmlElement
 //reprendre ici : pour décaler les images du caroussel , je vais rappeler les fonctions ci dessous apres écoute d'un évènement : jouer avec la variable 'CarousselLag'
 //je pourrai meme simplifier je pense, afin d'éviter de fetch à chaque fois. mais ca implique de sortir le tableau des films hors de la promise.all et des fetch, et cela je n'essaie plus !
 //donc se concenter de ré-éxécuter les fonctiosn ci dessous : ) !
-MultiFetchingForACategory("", "best-movie_picture")
-MultiFetchingForACategory("action", "category1_picture")
-MultiFetchingForACategory("comedy", "category2_picture")
-MultiFetchingForACategory("fantasy", "category3_picture")
 
+MultiFetchingForACategory(CarousselLag_value_bestMovies[0], "", "best-movie_picture")
+MultiFetchingForACategory(CarousselLag_value_category1[0], "action", "category1_picture")
+MultiFetchingForACategory(CarousselLag_value_category2[0], "comedy", "category2_picture")
+MultiFetchingForACategory(CarousselLag_value_category3[0], "fantasy", "category3_picture")
+
+
+//MultiFetchingForACategory appelle carousselPicturesUpdate_AfterButtonClick; cela ne changera pas car je dois travailler dans le promise.all
+//donc je vais écouter un évènement, modifier la valeur de CarousselLag (qu'il faudra que je fournisse comme argument à ces 2 fonctions) ; puis appeler MultiFetchingForACategory
+
+//le décalage est spécifique à une catégorie; donc je ne vais pas utiliser la classe "button-left" pour écouter l'évènement.
+//j'ajoute l'id "best-movie_button-left" 
+
+
+let element_bestMovie_buttonLeft = document.getElementById("best-movie_button-left"); // On récupère l'élément sur lequel on voudra agir
+let element_bestMovie_buttonRight = document.getElementById("best-movie_button-right"); 
+
+let element_category1_buttonLeft = document.getElementById("category1_button-left"); 
+let element_category1_buttonRight = document.getElementById("category1_button-right"); 
+
+let element_category2_buttonLeft = document.getElementById("category2_button-left"); 
+let element_category2_buttonRight = document.getElementById("category2_button-right"); 
+
+let element_category3_buttonLeft = document.getElementById("category3_button-left"); 
+let element_category3_buttonRight = document.getElementById("category3_button-right"); 
+
+
+
+
+//==========TEST NON FONCTIONNEL : LA VALEUR DE caroussel_value_id n'est modifiée qu'au sein de la fonction, meme avec un return 
+//async function carousselLeftButtons_eventListeners(button_element, caroussel_value_id, category_name, category_html_elements_prefix){
+//	button_element.addEventListener("click", function(event){
+//	if (caroussel_value_id > 0){
+//		caroussel_value_id -= 1
+//		console.log(caroussel_value_id) //reprendre ici : si je mets un décalage initial de 1, je vois qu'en fait ce n'est pas la valeur initiale de caroussel_value_id qui est modifiée ! mais oui, expliqué dans le cours, le truc des variables passées par valeur ou par références
+//		//utiliser un tableau ? ESSAYER AVEC UN RETURN et variable = fonction()
+//		MultiFetchingForACategory(caroussel_value_id, category_name, category_html_elements_prefix)
+//		}
+//	console.log(caroussel_value_id)
+//	return caroussel_value_id //sinon, la valeur initiale de caroussel_value_id n'est pas modifiée, on le voit si on met 1 comme valeur par défaut au décalage du carroussel
+//	})
+//}
+//
+//async function carousselRightButtons_eventListeners(button_element, caroussel_value_id, category_name, category_html_elements_prefix){
+//	button_element.addEventListener("click", function(event){
+//	if (caroussel_value_id < numberOfMoviesInACaroussel - numberOfMoviesDisplayedInACaroussel){
+//		caroussel_value_id += 1
+//		console.log(caroussel_value_id)
+//		MultiFetchingForACategory(caroussel_value_id, category_name, category_html_elements_prefix)
+//		}
+//	console.log(caroussel_value_id) // promise
+//	return caroussel_value_id
+//	})
+//}
+//CarousselLag_value_bestMovies = carousselLeftButtons_eventListeners(element_bestMovie_buttonLeft, CarousselLag_value_bestMovies, "", "best-movie_picture")
+//CarousselLag_value_bestMovies = carousselRightButtons_eventListeners(element_bestMovie_buttonRight, CarousselLag_value_bestMovies, "", "best-movie_picture")
+
+//j'essaie de n'avoir qu'une fonction pour les deux boutons du coup : mais je vais quand meme devoir l'appeler deux fois: stop, JE DOIS AVANCER.
+function carousselLeftAndRightsButtons_eventListeners(button_element, caroussel_value_table, category_name, category_html_elements_prefix){
+	button_element.addEventListener("click", function(event){
+		if (button_element.id.includes("left") && caroussel_value_table[0] > 0){
+			console.log("btn left activated")
+			caroussel_value_table[0] -= 1
+			console.log(caroussel_value_table[0])
+			MultiFetchingForACategory(caroussel_value_table[0], category_name, category_html_elements_prefix)
+			}
+//
+		else if (button_element.id.includes("right") && caroussel_value_table[0] < numberOfMoviesInACaroussel - numberOfMoviesDisplayedInACaroussel){
+			console.log("btn right activated")
+			console.log(caroussel_value_table[0])
+			caroussel_value_table[0] += 1
+			console.log(caroussel_value_table[0])
+			MultiFetchingForACategory(caroussel_value_table[0], category_name, category_html_elements_prefix)
+			}
+	})
+}
+
+carousselLeftAndRightsButtons_eventListeners(element_bestMovie_buttonLeft, CarousselLag_value_bestMovies, "", "best-movie_picture")
+carousselLeftAndRightsButtons_eventListeners(element_bestMovie_buttonRight, CarousselLag_value_bestMovies, "", "best-movie_picture")
+
+carousselLeftAndRightsButtons_eventListeners(element_category1_buttonLeft, CarousselLag_value_category1, "action", "category1_picture")
+carousselLeftAndRightsButtons_eventListeners(element_category1_buttonRight, CarousselLag_value_category1, "action", "category1_picture")
+
+carousselLeftAndRightsButtons_eventListeners(element_category2_buttonLeft, CarousselLag_value_category2, "comedy", "category2_picture")
+carousselLeftAndRightsButtons_eventListeners(element_category2_buttonRight, CarousselLag_value_category2, "comedy", "category2_picture")
+
+carousselLeftAndRightsButtons_eventListeners(element_category3_buttonLeft, CarousselLag_value_category3, "fantasy", "category3_picture")
+carousselLeftAndRightsButtons_eventListeners(element_category3_buttonRight, CarousselLag_value_category3, "fantasy", "category3_picture")
+
+
+
+//carousselLeftButtons_eventListeners(element_bestMovie_buttonLeft, CarousselLag_value_bestMovies, "", "best-movie_picture")
+//carousselLeftButtons_eventListeners(element_category1_buttonLeft, CarousselLag_value_category1, "action", "category1_picture")
+//carousselLeftButtons_eventListeners(element_category2_buttonLeft, CarousselLag_value_category2, "comedy", "category2_picture")
+//carousselLeftButtons_eventListeners(element_category3_buttonLeft, CarousselLag_value_category3, "fantasy", "category3_picture")
+
+//carousselRightButtons_eventListeners(element_bestMovie_buttonRight, CarousselLag_value_bestMovies, "", "best-movie_picture")
+//carousselRightButtons_eventListeners(element_category1_buttonRight, CarousselLag_value_category1, "action", "category1_picture")
+//carousselRightButtons_eventListeners(element_category2_buttonRight, CarousselLag_value_category2, "comedy", "category2_picture")
+//carousselRightButtons_eventListeners(element_category3_buttonRight, CarousselLag_value_category3, "fantasy", "category3_picture")
+
+//========== end of the test
+
+
+
+//MODEL for one left button
+//addEventListener(<event>, <callback>) (doc) prend en paramètres le nom de l'événement à écouter (voici la liste des événements existants), et la fonction à appeler dès que l'événement est exécuté. 
+//element_bestMovie_buttonLeft.addEventListener("click", function(event){
+//if (CarousselLag_value_bestMovies > 0){
+//	CarousselLag_value_bestMovies -= 1
+//	MultiFetchingForACategory(CarousselLag_value_bestMovies, "", "best-movie_picture")
+//}
+//})
+
+//MODEL for one right button
+//element_bestMovie_buttonRight.addEventListener("click", function(event){
+//if (CarousselLag_value_bestMovies < numberOfMoviesInACaroussel - numberOfMoviesDisplayedInACaroussel){
+//	CarousselLag_value_bestMovies += 1
+//	MultiFetchingForACategory(CarousselLag_value_bestMovies, "", "best-movie_picture")
+//}
+//})
+
+//MODELs applicated to all buttons : for one right button
+//si contient left: -1; si contient right : +1
+//si contient "best movies", parametres = tic et tac, si conteitn category1, parametres = action et category1_picture, etc. 
+//--> utiliser switch case break ?
+//posibilité d'organiser un dictionnaire 'categoriesParameters avec nom du carroussel value de la catégorie, le nom de la catégorie, le nom du prefixeHTML, etc
+
+
+//element_category1_buttonLeft.addEventListener("click", function(event){
+//	MultiFetchingForACategory(CarousselLag_value_category1 -= 1, "action", "category1_picture")
+//})
+
+//element_category1_buttonRight.addEventListener("click", function(event){
+//	MultiFetchingForACategory(CarousselLag_value_category1 += 1, "action", "category1_picture")
+//})
+
+//element_category2_buttonLeft.addEventListener("click", function(event){
+//	MultiFetchingForACategory(CarousselLag_value_category2 -= 1, "comedy", "category2_picture")
+//})
+
+//element_category2_buttonRight.addEventListener("click", function(event){
+//	MultiFetchingForACategory(CarousselLag_value_category2 += 1, "comedy", "category2_picture")
+//})
+
+//element_category3_buttonLeft.addEventListener("click", function(event){
+//	MultiFetchingForACategory(CarousselLag_value_category3 -= 1, "fantasy", "category3_picture")
+//})
+
+//element_category3_buttonRight.addEventListener("click", function(event){
+//	MultiFetchingForACategory(CarousselLag_value_category3 += 1, "fantasy", "category3_picture")
+//})
+//============================================================
 
 
 //===TEST : DOES NOT WORK===//
@@ -333,9 +487,9 @@ async function testing_2022_08_01(){
 //youtube()
 
 
-function carousselPicturesUpdate_AfterButtonClick(prefix_of_the_HtmlElements_IDs_for_a_category_carroussel, category_movies_JS_objects_list){
+function carousselPicturesUpdate_AfterButtonClick(CarousselLag, prefix_of_the_HtmlElements_IDs_for_a_category_carroussel, category_movies_JS_objects_list){
 	//Raplaces pictures of a given caroussel
-	CarousselLag = 0 	//lag = décalage
+	//CarousselLag = 0 	//lag = décalage
 
 	for (let PicturePositionInCarroussel = 0; PicturePositionInCarroussel < numberOfMoviesDisplayedInACaroussel ; PicturePositionInCarroussel++){ //numberOfMoviesDisplayedInACaroussel = 4 
 		let JS_movie_picture = document.getElementById(`${prefix_of_the_HtmlElements_IDs_for_a_category_carroussel}${PicturePositionInCarroussel}`); // --> on cherche best-movie_picture0, best-movie_picture1, etc
