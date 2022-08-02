@@ -10,6 +10,22 @@ let CarousselLag_value_bestMovies = [0] // table: reference is passed, and not o
 let CarousselLag_value_category1 = [0]
 let CarousselLag_value_category2 = [0]
 let CarousselLag_value_category3 = [0]
+
+
+
+let element_bestMovie_buttonLeft = document.getElementById("best-movie_button-left"); // On récupère l'élément sur lequel on voudra agir
+let element_bestMovie_buttonRight = document.getElementById("best-movie_button-right"); 
+
+let element_category1_buttonLeft = document.getElementById("category1_button-left"); 
+let element_category1_buttonRight = document.getElementById("category1_button-right"); 
+
+let element_category2_buttonLeft = document.getElementById("category2_button-left"); 
+let element_category2_buttonRight = document.getElementById("category2_button-right"); 
+
+let element_category3_buttonLeft = document.getElementById("category3_button-left"); 
+let element_category3_buttonRight = document.getElementById("category3_button-right"); 
+
+
 //POUR L'IMAGE DU MEILLEUR FILM
 //Récupérer le film qui a la meilleure note Imdb parmi tous les films
 //-->récupérer son titre et le résumé du film
@@ -130,6 +146,10 @@ function bestMovieFetching() {
 		.then(function(value) {
 			//RESUME : Association of the best movie summary to the corresponding HTML balise 
 			document.getElementById("bestMovie_Summary").textContent = value.description 
+
+			//value = json with all data related to the film : I use it for the modal box
+			openModalBox(value)
+
 		})
 	})
 	
@@ -229,12 +249,13 @@ async function MultiFetchingForACategory(CarousselLag, genreToFetch, prefix_of_t
 	movies_JS_objects_list.reverse()
 
 
+	
 	for (let movies_JS_object of movies_JS_objects_list){
 		//console.log(movies_JS_object.id +" "+ movies_JS_object.imdb_score)
-		carousselPicturesUpdate_AfterButtonClick(CarousselLag, prefix_of_the_HtmlElements_IDs_for_a_category_carroussel, movies_JS_objects_list)
+		carousselPicturesUpdate_AfterButtonClick(CarousselLag, prefix_of_the_HtmlElements_IDs_for_a_category_carroussel, movies_JS_objects_list) //il y a un truc pas logique ici
 	}
 
-	console.log(movies_JS_objects_list) //RESUME HERE !
+	console.log(movies_JS_objects_list) //
 
 }
 
@@ -243,10 +264,10 @@ async function MultiFetchingForACategory(CarousselLag, genreToFetch, prefix_of_t
 //je pourrai meme simplifier je pense, afin d'éviter de fetch à chaque fois. mais ca implique de sortir le tableau des films hors de la promise.all et des fetch, et cela je n'essaie plus !
 //donc se concenter de ré-éxécuter les fonctiosn ci dessous : ) !
 
-MultiFetchingForACategory(CarousselLag_value_bestMovies[0], "", "best-movie_picture")
-MultiFetchingForACategory(CarousselLag_value_category1[0], "action", "category1_picture")
-MultiFetchingForACategory(CarousselLag_value_category2[0], "comedy", "category2_picture")
-MultiFetchingForACategory(CarousselLag_value_category3[0], "fantasy", "category3_picture")
+//4* MultiFetchingForACategory(CarousselLag_value_bestMovies[0], "", "best-movie_picture") --> déplacé dans la main
+
+
+
 
 
 //MultiFetchingForACategory appelle carousselPicturesUpdate_AfterButtonClick; cela ne changera pas car je dois travailler dans le promise.all
@@ -256,17 +277,7 @@ MultiFetchingForACategory(CarousselLag_value_category3[0], "fantasy", "category3
 //j'ajoute l'id "best-movie_button-left" 
 
 
-let element_bestMovie_buttonLeft = document.getElementById("best-movie_button-left"); // On récupère l'élément sur lequel on voudra agir
-let element_bestMovie_buttonRight = document.getElementById("best-movie_button-right"); 
-
-let element_category1_buttonLeft = document.getElementById("category1_button-left"); 
-let element_category1_buttonRight = document.getElementById("category1_button-right"); 
-
-let element_category2_buttonLeft = document.getElementById("category2_button-left"); 
-let element_category2_buttonRight = document.getElementById("category2_button-right"); 
-
-let element_category3_buttonLeft = document.getElementById("category3_button-left"); 
-let element_category3_buttonRight = document.getElementById("category3_button-right"); 
+//8 elements getElementbyID déplacés en haute
 
 
 
@@ -301,35 +312,24 @@ let element_category3_buttonRight = document.getElementById("category3_button-ri
 
 //j'essaie de n'avoir qu'une fonction pour les deux boutons du coup : mais je vais quand meme devoir l'appeler deux fois: stop, JE DOIS AVANCER.
 function carousselLeftAndRightsButtons_eventListeners(button_element, caroussel_value_table, category_name, category_html_elements_prefix){
+	//carroussel scrolling : when button_element is pressed, caroussel_value_table[0] is modificated and MultiFetchingForACategory is called 
+	//note : MultiFetchingForACategory() is called twice: redundant code : in order to evitate fetch when caroussel_value_table < 0 or > 7
 	button_element.addEventListener("click", function(event){
 		if (button_element.id.includes("left") && caroussel_value_table[0] > 0){
-			console.log("btn left activated")
 			caroussel_value_table[0] -= 1
-			console.log(caroussel_value_table[0])
 			MultiFetchingForACategory(caroussel_value_table[0], category_name, category_html_elements_prefix)
 			}
-//
 		else if (button_element.id.includes("right") && caroussel_value_table[0] < numberOfMoviesInACaroussel - numberOfMoviesDisplayedInACaroussel){
-			console.log("btn right activated")
-			console.log(caroussel_value_table[0])
 			caroussel_value_table[0] += 1
-			console.log(caroussel_value_table[0])
 			MultiFetchingForACategory(caroussel_value_table[0], category_name, category_html_elements_prefix)
 			}
 	})
 }
 
-carousselLeftAndRightsButtons_eventListeners(element_bestMovie_buttonLeft, CarousselLag_value_bestMovies, "", "best-movie_picture")
-carousselLeftAndRightsButtons_eventListeners(element_bestMovie_buttonRight, CarousselLag_value_bestMovies, "", "best-movie_picture")
 
-carousselLeftAndRightsButtons_eventListeners(element_category1_buttonLeft, CarousselLag_value_category1, "action", "category1_picture")
-carousselLeftAndRightsButtons_eventListeners(element_category1_buttonRight, CarousselLag_value_category1, "action", "category1_picture")
+//8* carousselLeftAndRightsButtons_eventListeners(element_bestMovie_buttonLeft, CarousselLag_value_bestMovies, "", "best-movie_picture") --> déplacé dans la main
 
-carousselLeftAndRightsButtons_eventListeners(element_category2_buttonLeft, CarousselLag_value_category2, "comedy", "category2_picture")
-carousselLeftAndRightsButtons_eventListeners(element_category2_buttonRight, CarousselLag_value_category2, "comedy", "category2_picture")
 
-carousselLeftAndRightsButtons_eventListeners(element_category3_buttonLeft, CarousselLag_value_category3, "fantasy", "category3_picture")
-carousselLeftAndRightsButtons_eventListeners(element_category3_buttonRight, CarousselLag_value_category3, "fantasy", "category3_picture")
 
 
 
@@ -499,8 +499,136 @@ function carousselPicturesUpdate_AfterButtonClick(CarousselLag, prefix_of_the_Ht
 
 
 
+function carrousselInitialisation(){
+	MultiFetchingForACategory(CarousselLag_value_bestMovies[0], "", "best-movie_picture")
+	MultiFetchingForACategory(CarousselLag_value_category1[0], "action", "category1_picture")
+	MultiFetchingForACategory(CarousselLag_value_category2[0], "comedy", "category2_picture")
+	MultiFetchingForACategory(CarousselLag_value_category3[0], "fantasy", "category3_picture")
+}
+
+function carrousselScrolling(){
+	carousselLeftAndRightsButtons_eventListeners(element_bestMovie_buttonLeft, CarousselLag_value_bestMovies, "", "best-movie_picture")
+	carousselLeftAndRightsButtons_eventListeners(element_bestMovie_buttonRight, CarousselLag_value_bestMovies, "", "best-movie_picture")
+
+	carousselLeftAndRightsButtons_eventListeners(element_category1_buttonLeft, CarousselLag_value_category1, "action", "category1_picture")
+	carousselLeftAndRightsButtons_eventListeners(element_category1_buttonRight, CarousselLag_value_category1, "action", "category1_picture")
+
+	carousselLeftAndRightsButtons_eventListeners(element_category2_buttonLeft, CarousselLag_value_category2, "comedy", "category2_picture")
+	carousselLeftAndRightsButtons_eventListeners(element_category2_buttonRight, CarousselLag_value_category2, "comedy", "category2_picture")
+
+	carousselLeftAndRightsButtons_eventListeners(element_category3_buttonLeft, CarousselLag_value_category3, "fantasy", "category3_picture")
+	carousselLeftAndRightsButtons_eventListeners(element_category3_buttonRight, CarousselLag_value_category3, "fantasy", "category3_picture")
+}
 
 
+
+
+
+function openModalBox(JsonDict_MovieAllData){
+	//Source : https://www.w3schools.com/howto/howto_css_modals.asp
+	// Get the modal
+	let HtmlElementModal = document.getElementById("ModalBox");
+
+	// Get the button that opens the modal
+	let HtmlElementButtonOppeningTheModalBox = document.getElementById("bestMovieModalButton"); //Essayer avec la classe image également; lorsque je serai dans le caroussel
+	
+	// Get the <span> element that closes the modal
+	let span = document.getElementsByClassName("closeTheModalSpan")[0];
+	
+	// When the user clicks on the button, open the modal
+	HtmlElementButtonOppeningTheModalBox.onclick = function() {
+		HtmlElementModal.style.display = "block";
+	}
+	
+	// When the user clicks on <span> (x), close the modal
+	span.onclick = function() {
+		HtmlElementModal.style.display = "none";
+	}
+	
+	// When the user clicks anywhere outside of the modal, close it
+	window.onclick = function(event) {
+		if (event.target == HtmlElementModal) {
+			HtmlElementModal.style.display = "none";
+			}
+		} 
+
+	//TEST FOR DISPLAYING INFORMATION RELATED TO THE BEST MOVIE INT THE MODAL BOX
+	//OU SONT LES INFOS ?  
+	//-> dans bestMovieFetching; je dois travailler dans la fonction .then()
+	//donc la fonction que je suis en train de rédiger va etre executée dans cette .then
+	//autre idée: lors de la fetch, je peux garder l'url du film dans une variable propre à la balise HTML (en modificant sa classe par exemple, meme si ca me paraitre vraiment risqué et pas propre)
+	
+	//apres, pas obligé de mettre l'ouverture de fenetre modale dans la fetch ? bah si en fait parceque j'arrivais pas à sortir les valeurs.
+	
+		//i will receive (from the fetch related to the best movie) : a json dict with all data related to the film : I use it for the modal box
+
+
+
+	//OU EST CE QUE JE VEUX ENVOYER LES INFOS ? LISTE DES IDs : 
+	//"modal-content_movie-picture" //L’image de la pochette du film : 'image_url' -> url 
+	//"modal-content_title" //Le Titre du film : 'title' -> string 
+	//"modal-content_genres" //Le genre complet du film : 'genres' -> [] 
+	//"modal-content_date_published" //Sa date de sortie : 'date_published' -> string 
+	//"modal-content_rated" //Son Rated : 'rated' -> string 
+	//"modal-content_imdb_score" //Son score Imdb : ''imdb_score' -> string 
+	//"modal-content_directors" //Son réalisateur : 'directors' -> [] 
+	//"modal-content_actors" //La liste des acteurs : 'actors' -> []
+	//"modal-content_duration" //Sa durée : 'duration' -> integer 
+	//"modal-content_countries" //Le pays d’origine : 'countries' -> [] 
+	//"modal-content_worldwide_gross_income" //Le résultat au Box Office : 'usa_gross_income' or 'worldwide_gross_income' ? -> integer ; i suppose worldwide_gross_income 
+	//"modal-content_long_description" //Le résumé du film : 'description' or 'long_description' ? -> string ; I suppose 'long_description'
+
+	let HtmlElement_Modal_moviePicture = document.getElementById("modal-content_movie-picture"); //L’image de la pochette du film : 'image_url' -> url 
+	HtmlElement_Modal_moviePicture.src = JsonDict_MovieAllData.image_url
+
+	let HtmlElement_Modal_title = document.getElementById("modal-content_title");//Le Titre du film : 'title' -> string
+	HtmlElement_Modal_title.textContent = "TITLE: " + JsonDict_MovieAllData.title // IT WOOOOORKS !
+
+	let HtmlElement_Modal_genres = document.getElementById("modal-content_genres"); //Le genre complet du film : 'genres' -> [] 
+	HtmlElement_Modal_genres.textContent = "GENRES: " + JsonDict_MovieAllData.genres
+
+	let HtmlElement_Modal_datePublished = document.getElementById("modal-content_date_published"); //Sa date de sortie : 'date_published' -> string 
+	HtmlElement_Modal_datePublished.textContent = "DATE PUBLISHED: " + JsonDict_MovieAllData.date_published
+
+	let HtmlElement_Modal_rated = document.getElementById("modal-content_rated"); //Son Rated : 'rated' -> string 
+	HtmlElement_Modal_rated.textContent = "RATED: " + JsonDict_MovieAllData.rated
+
+	let HtmlElement_Modal_imdbScore = document.getElementById("modal-content_imdb_score"); //Son score Imdb : ''imdb_score' -> string 
+	HtmlElement_Modal_imdbScore.textContent = "IMDB SCORE: " + JsonDict_MovieAllData.imdb_score
+
+	let HtmlElement_Modal_directors = document.getElementById("modal-content_directors"); //Son réalisateur : 'directors' -> [] 
+	HtmlElement_Modal_directors.textContent = "DIRECTORS: " + JsonDict_MovieAllData.directors
+
+	let HtmlElement_Modal_actors = document.getElementById("modal-content_actors"); //La liste des acteurs : 'actors' -> []
+	HtmlElement_Modal_actors.textContent = "ACTORS: " + JsonDict_MovieAllData.actors
+
+	let HtmlElement_Modal_duration = document.getElementById("modal-content_duration"); //Sa durée : 'duration' -> integer 
+	HtmlElement_Modal_duration.textContent = "DURATION: " + JsonDict_MovieAllData.duration
+
+	let HtmlElement_Modal_countries = document.getElementById("modal-content_countries"); //Le pays d’origine : 'countries' -> [] 
+	HtmlElement_Modal_countries.textContent = "COUNTRIES: " + JsonDict_MovieAllData.countries
+
+	let HtmlElement_Modal_worldwideGrossIncome = document.getElementById("modal-content_worldwide_gross_income"); //Le résultat au Box Office : 'usa_gross_income' or 'worldwide_gross_income' ? -> integer ; 
+	//I suppose worldwide_gross_income 
+	HtmlElement_Modal_worldwideGrossIncome.textContent = "WORLDWIDE GROSS INCOME (box office result): " + JsonDict_MovieAllData.worldwide_gross_income
+
+	let HtmlElement_Modal_longDescription = document.getElementById("modal-content_long_description"); //Le résumé du film : 'description' or 'long_description' ? -> string ; 
+	//I suppose 'long_description'
+	HtmlElement_Modal_longDescription.textContent = "LONG DESCRIPTION (movie summary): " + JsonDict_MovieAllData.long_description
+}
+
+
+//openModalBox()
+
+//REPRENDRE ICI : j'arrive à faire la fenetre modale du meilleur film.
+//objectif : maintenant c'est quand on clique sur une 'image' que je veux une fenetre modale.  ces "images" sont bel et bien des images en termes de balises HTML
+//le truc c'est qu'il faut tenir compte du décalage du carroussel, ce qui m'interesse c'est l'information relative à la balise image, et non pas la balise image elle meme
+//saaaaaaauf si je stocke l'url du film dans la balise alt de la balise image
+//voir si je ne peuxpas intervenir dans la promise.all, quand meme, ce serait beaucoup plus simple !
+//ou voir meme si je ne peux pas intervenir dans la fonction carousselPicturesUpdate_AfterButtonClick() ! : D --> non, les infos sont dans multifetching c'est sur.. wow : SCHEMA !
+
+//--> tester : intervenir dans multifethcing, utiliser la valeur du décalage du caroussel pour savoir a quel index de tableau on a : 
+//si je clique sur la 3eme image en partant de la gauche, avec un décalage de 1 ; je dois choisir le film à la position 3 (en absolu, dans le code) (4eme position dans le tableu en partant de 0)
 
 
 function main(){
@@ -518,6 +646,12 @@ function main(){
 	//	carousselPicturesUpdate_AfterButtonClick("best-movie_picture", movies_JS_objects_list)
 	//}, 1000);
 
+	
+	//CARROUSSEL INITIALISATION
+	carrousselInitialisation()
+
+	//CARROUSSEL SCROLLING
+	carrousselScrolling()
 
 }
 
