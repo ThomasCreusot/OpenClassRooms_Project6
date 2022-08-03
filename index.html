@@ -86,11 +86,36 @@
 		</div>
 
 
+
+		<!-- The Modal for carroussels pictures -->
+		<div id="CarrousselModalBox" class="modalWindow">
+	
+			<!-- Modal content -->
+			<div class="CarrousselModal-content">
+				<span class="CarrousselCloseTheModalSpan">&times;</span>
+
+				<img id ="CarrousselModal-content_movie-picture" src="image_de_film_factice_mini.png" alt="image de film"> <!--L’image de la pochette du film : 'image_url' -> url -->
+				<p id ="CarrousselModal-content_title">title</p> <!--Le Titre du film : 'title' -> string -->
+				<p id ="CarrousselModal-content_genres">genres</p> <!--Le genre complet du film : 'genres' -> [] -->
+				<p id ="CarrousselModal-content_date_published">date_published</p> <!--Sa date de sortie : 'date_published' -> string -->
+				<p id ="CarrousselModal-content_rated">rated</p> <!--Son Rated : 'rated' -> string -->
+				<p id ="CarrousselModal-content_imdb_score">imdb_score</p> <!--Son score Imdb : ''imdb_score' -> string -->
+				<p id ="CarrousselModal-content_directors">directors</p> <!--Son réalisateur : 'directors' -> [] -->
+				<p id ="CarrousselModal-content_actors">actors</p> <!--La liste des acteurs : 'actors' -> [] -->
+				<p id ="CarrousselModal-content_duration">duration</p> <!--Sa durée : 'duration' -> integer -->
+				<p id ="CarrousselModal-content_countries">countries</p> <!--Le pays d’origine : 'countries' -> [] -->
+				<p id ="CarrousselModal-content_worldwide_gross_income">worldwide_gross_income</p> <!--Le résultat au Box Office : 'usa_gross_income' or 'worldwide_gross_income' ? -> integer ; i suppose worldwide_gross_income -->
+				<p id ="CarrousselModal-content_long_description">long_description</p> <!--Le résumé du film : 'description' or 'long_description' ? -> string ; I suppose 'long_description'-->
+
+
+			</div>
+		</div> 
+
 		<section class="movies-section">
 			<h1>Films les mieux notés</h1>
 			<div class="movies-section__button_and_pictures">
 				<div id = "best-movie_button-left" class="button-left">
-					<p>B</p>
+					<img class="button-left-picture" src="leftCarrousselButton.png" alt="left button">
 				</div>
 
 				<div class="movies-pictures-container">
@@ -101,7 +126,7 @@
 				</div>
 
 				<div id = "best-movie_button-right" class="button-right">
-					<p>B</p>
+					<img class="button-right-picture" src="rightCarrousselButton.png" alt="right button">
 				</div>
 			</div>
 		</section>
@@ -111,7 +136,7 @@
 			<h1>Categorie1</h1>
 			<div class="movies-section__button_and_pictures">
 				<div id = "category1_button-left" class="button-left">
-					<p>B</p>
+					<img class="button-left-picture" src="leftCarrousselButton.png" alt="left button">
 				</div>
 
 				<div class="movies-pictures-container">
@@ -122,7 +147,7 @@
 				</div>
 
 				<div id = "category1_button-right" class="button-right">
-					<p>B</p>
+					<img class="button-right-picture" src="rightCarrousselButton.png" alt="right button">
 				</div>
 			</div>
 		</section>
@@ -132,7 +157,7 @@
 			<h1>Categorie2</h1>
 			<div class="movies-section__button_and_pictures">
 				<div id = "category2_button-left" class="button-left">
-					<p>B</p>
+					<img class="button-left-picture" src="leftCarrousselButton.png" alt="left button">
 				</div>
 
 				<div class="movies-pictures-container">
@@ -143,7 +168,7 @@
 				</div>
 
 				<div id="category2_button-right" class="button-right">
-					<p>B</p>
+					<img class="button-right-picture" src="rightCarrousselButton.png" alt="right button">
 				</div>
 			</div>
 		</section>
@@ -153,7 +178,7 @@
 			<h1>Categorie3</h1>
 			<div class="movies-section__button_and_pictures">
 				<div id = "category3_button-left" class="button-left">
-					<p>B</p>
+					<img class="button-left-picture" src="leftCarrousselButton.png" alt="left button">
 				</div>
 
 				<div class="movies-pictures-container">
@@ -164,7 +189,7 @@
 				</div>
 
 				<div id="category3_button-right" class="button-right">
-					<p>B</p>
+					<img class="button-right-picture" src="rightCarrousselButton.png" alt="right button">
 				</div>
 			</div>
 		</section>

@@ -127,10 +127,13 @@ header
     align-items: flex-end; /* ou  baseline ? */
 
     /*petite marge pour le texte*/
-    width: 98%;
-    padding-left: 2%;
+    width: 82%;
+    padding-left: 3%;
+    padding-right: 15%;
+    padding-bottom: 5%;
 
-    background-color: rgb(20, 20, 20);
+    background-color: rgb(30, 30, 30);
+    background-image: linear-gradient(rgb(0, 0, 0),  rgb(50, 50, 50), rgb(0, 0, 0));
 
     /*Annulé: finalement l'image du meilleur film sera une balise img; plus facile d'interagir en JS avec*/
     /*background-image: url("./image_de_film_factice_higher_rated_movie.png");*/
@@ -139,9 +142,9 @@ header
     /*background-position: right top;*/
     /*opacity: 75%;*/
 
-    border-width: 10 px;
+    /*border-width: 10 px;
     border-color:  rgb(251, 255, 0);
-    border-style: solid;
+    border-style: solid;*/
 
     height: 400px; /*sera réutilisé en JS*/
 
@@ -160,9 +163,9 @@ header
     /*--Secondary axis : align-items : stretch /flex-start /flex-end /center/baseline*/
     align-items: flex-start; /* ou  baseline ? */
 
-    border-width: 10 px;
+    /*border-width: 10 px;
     border-color:  rgb(255, 196, 0);
-    border-style: solid;
+    border-style: solid;*/
 
 }
 
@@ -199,9 +202,11 @@ header
 
     background-color: rgb(61, 61, 61);
 
-    border-width: 10 px;
+    /*border-width: 10 px;
     border-color:  rgb(0, 255, 0);
-    border-style: solid;
+    border-style: solid;*/
+
+    background-image: linear-gradient(to right, rgb(50, 50, 50), rgb(0, 0, 0),  rgb(0, 0, 0), rgb(50, 50, 50));
 }
 
 
@@ -212,11 +217,18 @@ header
 {
     width: 10%; /*(100-80)/ 2*/
 
-    border-width: 10 px;
+    /*border-width: 10 px;
     border-color:  rgb(212, 0, 255);
-    border-style: solid;
+    border-style: solid;*/
 }
 
+
+.button-left-picture{
+    width: 50%;
+}
+.button-right-picture{
+    width: 50%;
+}
 
 .movies-pictures-container
 {
@@ -233,20 +245,24 @@ header
     /*--Secondary axis : align-items : stretch /flex-start /flex-end /center/baseline*/
     align-items: flex-start; /* ou  baseline ? */
 
-    width: 90%; /*pour garder le bouton de droite visible : 100 - 10% */
+    width: 50%; /*pour garder le bouton de droite visible : 100 - 10% */
 
     background-color: rgb(0, 0, 0);
 
     border-width: 10 px;
-    border-color:  rgb(0, 17, 255);
+    border-color:  rgb(0, 0, 0);
     border-style: solid;
 
-    flex-wrap: nowrap;
+    flex-wrap: wrap;
 }
 
 #bestMovieModalButton{
-    color: rgb(0, 0, 0);
-    background-color: rgb(255, 255, 255);
+    color: rgb(255, 255, 255);
+    background-color: rgb(0, 0, 0);
+
+    border-width: 10 px;
+    border-color:  rgb(50, 50, 50);
+    border-style: solid;
 
     font-size: 1.2em;
 }
@@ -270,7 +286,7 @@ header
 }
 
 /* Modal Content/Box */
-    .modal-content {
+    .modal-content , .CarrousselModal-content {
     background-color: rgb(30, 30, 30);
     margin: 5% auto; /* 5% from the top and centered */
     padding: 20px;
@@ -279,7 +295,7 @@ header
 }
 
 /* The Close Button */
-.closeTheModalSpan {
+.closeTheModalSpan, .CarrousselCloseTheModalSpan {
     color: rgb(255, 150, 150);
     float: right;
     font-size: 40px;
@@ -287,10 +303,11 @@ header
 }
 
 .closeTheModalSpan:hover,
-.closeTheModalSpan:focus {
+.closeTheModalSpan:focus, 
+.CarrousselCloseTheModalSpan:hover,
+.CarrousselCloseTheModalSpan:focus {
     color: rgb(255, 0, 0);
     text-decoration: none;
     cursor: pointer;
 } 
-
 
