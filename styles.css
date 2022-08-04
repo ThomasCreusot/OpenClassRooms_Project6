@@ -1,31 +1,19 @@
-/*
-TO DO LIST : 
-Utilisez le responsive design (primordial !) avec les Media Queries
---> modifier le flexbox horizontal par vertical
-
-Memo:
-si trop de texte dans un bloc : overflow : visible (par défaut)/ hidden (coupé)/ scroll 
-*/
-
-
 /* PLAN CSS FILE */
-/* 
-Fonts
-Main styles of the page : page width, page background color, flexbox primary blocs alignements, default font
-Header
-Best movie
-Movies categories (best, 1,2,3)
-Buttons
-Modal Window
+/*
+    Fonts
+    Main styles of the page : page width, page background color, flexbox primary blocs alignements, default font
+    Header
+    Best movie
+    Movies categories (best, 1,2,3)
+    Buttons
+    Modal Window
 */
-
-/*_______________________________________________________________________________________________________________/*
-/*____CSS____/*
 
 
 /*_______________________________________________________________________________________________________________/*
 /* FONTS */
 
+/*Proof of concept*/
 @font-face {
     font-family: 'lane_-_narrowregular';
     src: url('polices/lane-narrow_regular_macroman/LANENAR_-webfont.eot');
@@ -45,7 +33,7 @@ Modal Window
 /* Background color and size */
 body
 {
-    background-color: rgb(5, 5, 5);
+    background-color: rgb(10,10,10);
     background-size: 100%;
 }
 
@@ -58,7 +46,7 @@ body
     /*Principal axis definition : flex-direction : row/ column/ row-reverse/ column-reverse*/
     flex-direction: column;
 
-    /*-Allignement : */
+    /*-Allignement*/
     /*--Principal axis : justify-content : flex-start/ flex-end/ center/ space-between/ space-around*/
     justify-content: center;
     /*--Secondary axis : align-items : stretch /flex-start /flex-end /center/baseline*/
@@ -76,7 +64,7 @@ header, .best-movie-container, .higher-rated-movies-section, .movies-section
     margin: 0 px;
     padding: 0 px; 
 
-    /*testing*/
+    /*Display borders for testing*/
     /*border-width: 10 px;*/
     /*border-color:  rgb(100,100,100);*/
     /*border-style: solid*/
@@ -85,7 +73,7 @@ header, .best-movie-container, .higher-rated-movies-section, .movies-section
 
 /*Default font*/
 *{
-    font-family: georgia, sans-serif; /* i delte 'lane_-_narrowregular' --> bug in console*/
+    font-family: georgia, sans-serif; /* 'lane_-_narrowregular' deleted --> bug in console*/
     color: rgb(255, 255, 255);
 }
 
@@ -100,7 +88,7 @@ header
     /*Principal axis definition : flex-direction : row/ column/ row-reverse/ column-reverse*/
     flex-direction: row;
 
-    /*-Allignement : */
+    /*-Allignement*/
     /*--Principal axis : justify-content : flex-start/ flex-end/ center/ space-between/ space-around*/
     justify-content: space-around;
     /*--Secondary axis : align-items : stretch /flex-start /flex-end /center/baseline*/
@@ -120,36 +108,38 @@ header
     /*Principal axis definition : flex-direction : row/ column/ row-reverse/ column-reverse*/
     flex-direction: row;
 
-    /*-Allignement : */
+    /*-Allignement*/
     /*--Principal axis : justify-content : flex-start/ flex-end/ center/ space-between/ space-around*/
     justify-content: space-between;
     /*--Secondary axis : align-items : stretch /flex-start /flex-end /center/baseline*/
     align-items: flex-end; /* ou  baseline ? */
 
-    /*petite marge pour le texte*/
+    /*Margins for the better display of the text and the picture*/
     width: 82%;
+    margin-top: 2%;
+
     padding-left: 3%;
     padding-right: 15%;
-    padding-bottom: 5%;
+    padding-top: 0%;
+    padding-bottom: 0%;
 
     background-color: rgb(30, 30, 30);
-    background-image: linear-gradient(rgb(0, 0, 0),  rgb(50, 50, 50), rgb(0, 0, 0));
+    background-image: linear-gradient(rgb(10,10,10),  rgb(50,50,50), rgb(10,10,10));
 
-    /*Annulé: finalement l'image du meilleur film sera une balise img; plus facile d'interagir en JS avec*/
+    /*cancelled: finaly the picture of the best movie is an img balise : easier interaction with JS*/
     /*background-image: url("./image_de_film_factice_higher_rated_movie.png");*/
     /*background-attachment: scroll;*/
     /*background-repeat: no-repeat;*/
     /*background-position: right top;*/
     /*opacity: 75%;*/
 
-    /*border-width: 10 px;
-    border-color:  rgb(251, 255, 0);
-    border-style: solid;*/
+    border-width: 10 px;
+    border-color:  rgb(50,50,50);
+    border-style: solid;
 
-    height: 400px; /*sera réutilisé en JS*/
-
-/*    height: 300px;*/ /*METTRE LA HAUTEUR EN PIXEL DE L'IMAGE DU FILM*/
+    height: 400px; /*will be used in JS*/
 }
+
 
 .best-movie-container__movie-presentation-and-access
 {
@@ -157,25 +147,37 @@ header
 
     /*Principal axis definition : flex-direction : row/ column/ row-reverse/ column-reverse*/
     flex-direction: column; 
-    /*-Allignement : */
+    /*-Allignement*/
     /*--Principal axis : justify-content : flex-start/ flex-end/ center/ space-between/ space-around*/
     justify-content: space-between;
     /*--Secondary axis : align-items : stretch /flex-start /flex-end /center/baseline*/
     align-items: flex-start; /* ou  baseline ? */
 
+    /*Display borders for testing*/
     /*border-width: 10 px;
     border-color:  rgb(255, 196, 0);
     border-style: solid;*/
-
 }
 
-#bestMovie_Title{
-    font-size: 2.5em;
+
+#bestMovie_Title
+{
+    font-size: 4em;
+    margin-bottom: 1%;
 }
 
-#bestMovie_Summary{
+
+#bestMovie_Summary
+{
     font-size: 1.4em;
 }
+
+
+#bestMovie_Picture
+{
+    height: 400px; /*will be used in JS ; 400px is from the size of the container*/
+}
+
 
 /*_______________________________________________________________________________________________________________/*
 /*MOVIES CATEGORIES*/
@@ -185,6 +187,15 @@ header
     margin-top: 50px;
 }
 
+
+.movies-section h1
+{
+    text-align: center;
+    margin-top: 4%;    
+    margin-bottom: 2%;
+}
+
+
 .movies-section__button_and_pictures
 {
     display: flex;
@@ -192,7 +203,7 @@ header
     /*Principal axis definition : flex-direction : row/ column/ row-reverse/ column-reverse*/
     flex-direction: row;
 
-    /*-Allignement : */
+    /*-Allignement*/
     /*--Principal axis : justify-content : flex-start/ flex-end/ center/ space-between/ space-around*/
     justify-content: space-between;
     /*--Secondary axis : align-items : stretch /flex-start /flex-end /center/baseline*/
@@ -202,11 +213,13 @@ header
 
     background-color: rgb(61, 61, 61);
 
+    /*Display borders for testing*/
     /*border-width: 10 px;
     border-color:  rgb(0, 255, 0);
     border-style: solid;*/
 
-    background-image: linear-gradient(to right, rgb(50, 50, 50), rgb(0, 0, 0),  rgb(0, 0, 0), rgb(50, 50, 50));
+    background-image: linear-gradient(to right, rgb(30,30,30), rgb(10,10,10), rgb(10,10,10), rgb(10,10,10),  
+                                                rgb(10,10,10),rgb(10,10,10), rgb(10,10,10), rgb(30,30,30));
 }
 
 
@@ -217,18 +230,24 @@ header
 {
     width: 10%; /*(100-80)/ 2*/
 
+    /*Display borders for testing*/
     /*border-width: 10 px;
     border-color:  rgb(212, 0, 255);
     border-style: solid;*/
 }
 
 
-.button-left-picture{
+.button-left-picture
+{
     width: 50%;
 }
-.button-right-picture{
+
+
+.button-right-picture
+{
     width: 50%;
 }
+
 
 .movies-pictures-container
 {
@@ -239,40 +258,49 @@ header
     /*Principal axis definition : flex-direction : row/ column/ row-reverse/ column-reverse*/
     flex-direction: row;
 
-    /*-Allignement : */
+    /*-Allignement*/
     /*--Principal axis : justify-content : flex-start/ flex-end/ center/ space-between/ space-around*/
     justify-content: space-between;
     /*--Secondary axis : align-items : stretch /flex-start /flex-end /center/baseline*/
     align-items: flex-start; /* ou  baseline ? */
 
-    width: 50%; /*pour garder le bouton de droite visible : 100 - 10% */
+    width: 50%; 
 
-    background-color: rgb(0, 0, 0);
+    background-color: rgb(10,10,10);
 
     border-width: 10 px;
-    border-color:  rgb(0, 0, 0);
+    border-color:  rgb(10,10,10);
     border-style: solid;
 
     flex-wrap: wrap;
 }
 
+
 #bestMovieModalButton{
     color: rgb(255, 255, 255);
-    background-color: rgb(0, 0, 0);
+    background-color: rgb(10,10,10);
 
     border-width: 10 px;
-    border-color:  rgb(50, 50, 50);
+    border-color:  rgb(10,10,10);
     border-style: solid;
 
     font-size: 1.2em;
+    margin-bottom: 3%;
+}
+
+
+#bestMovieModalButton:hover{
+    font-weight: bold;
 }
 
 
 /*_______________________________________________________________________________________________________________/*
 /*MODAL WINDOW*/
 /*Source : https://www.w3schools.com/howto/howto_css_modals.asp*/
- /* The Modal (background) */
-.modalWindow {
+
+/* The Modal (background) */
+.modalWindow
+{
     display: none; /* Hidden by default */
     position: fixed; /* Stay in place */
     z-index: 1; /* Sit on top */
@@ -285,8 +313,10 @@ header
     background-color: rgba(0, 0, 0, 0.5); /* Black w/ opacity */
 }
 
+
 /* Modal Content/Box */
-    .modal-content , .CarrousselModal-content {
+    .modal-content , .CarrousselModal-content
+    {
     background-color: rgb(30, 30, 30);
     margin: 5% auto; /* 5% from the top and centered */
     padding: 20px;
@@ -294,20 +324,23 @@ header
     width: 80%; /* Could be more or less, depending on screen size */
 }
 
+
 /* The Close Button */
-.closeTheModalSpan, .CarrousselCloseTheModalSpan {
+.closeTheModalSpan, .CarrousselCloseTheModalSpan
+{
     color: rgb(255, 150, 150);
     float: right;
     font-size: 40px;
     font-weight: bold;
 }
 
+
 .closeTheModalSpan:hover,
 .closeTheModalSpan:focus, 
 .CarrousselCloseTheModalSpan:hover,
-.CarrousselCloseTheModalSpan:focus {
+.CarrousselCloseTheModalSpan:focus
+{
     color: rgb(255, 0, 0);
     text-decoration: none;
     cursor: pointer;
 } 
-

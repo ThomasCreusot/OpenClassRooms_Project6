@@ -1,25 +1,3 @@
-
-<!-- 
-	memo: <a href="https://site.com">Texte sur le site</a> -> site externe, autre page du meme dossier, ancre, etc
-
-	tableau : voir detail dans résume (titre, etc)
-<table>
-   <tr>
-       <td> AAA</td>
-       <td> BBB </td>
-       <td> CCC </td>
-   </tr>
-   <tr>
-       <td> XXX </td>
-       <td> YYY </td>
-       <td> ZZZ </td>
-   </tr>
-</table>
-
--->
-
-
-
 <!DOCTYPE html>
 <html>
 
@@ -32,6 +10,7 @@
 
 <body>
 	<div id=blocPage>
+
 		<header>
 			<p class="logo">JustStreamIt</p>
 			<nav>
@@ -41,78 +20,23 @@
 		</header>
 
 
-		<div class="best-movie-container"> <!--bloc-->
-			<div class="best-movie-container__movie-presentation-and-access"> <!--je voulais mettre un fond plutot qu'une image impliquant cette div, mais img plus facile pour interagir avec JS-->
+		<div class="best-movie-container">
+			<div class="best-movie-container__movie-presentation-and-access"> 
 				<p id="bestMovie_Title">titre film</p>
-				<!--<div class="button">
-					<p>bouton</p>
-				</div>-->
 
 				<!-- Source : https://www.w3schools.com/howto/howto_css_modals.asp -->
 				<!-- Trigger/Open The Modal -->
 				<button id="bestMovieModalButton">More information</button> 
 
-
-
-				<!-- The Modal -->
-				<div id="ModalBox" class="modalWindow">
-				
-					<!-- Modal content -->
-					<div class="modal-content">
-						<span class="closeTheModalSpan">&times;</span>
-
-						<img id ="modal-content_movie-picture" src="image_de_film_factice_mini.png" alt="image de film"> <!--L’image de la pochette du film : 'image_url' -> url -->
-						<p id ="modal-content_title">title</p> <!--Le Titre du film : 'title' -> string -->
-						<p id ="modal-content_genres">genres</p> <!--Le genre complet du film : 'genres' -> [] -->
-						<p id ="modal-content_date_published">date_published</p> <!--Sa date de sortie : 'date_published' -> string -->
-						<p id ="modal-content_rated">rated</p> <!--Son Rated : 'rated' -> string -->
-						<p id ="modal-content_imdb_score">imdb_score</p> <!--Son score Imdb : ''imdb_score' -> string -->
-						<p id ="modal-content_directors">directors</p> <!--Son réalisateur : 'directors' -> [] -->
-						<p id ="modal-content_actors">actors</p> <!--La liste des acteurs : 'actors' -> [] -->
-						<p id ="modal-content_duration">duration</p> <!--Sa durée : 'duration' -> integer -->
-						<p id ="modal-content_countries">countries</p> <!--Le pays d’origine : 'countries' -> [] -->
-						<p id ="modal-content_worldwide_gross_income">worldwide_gross_income</p> <!--Le résultat au Box Office : 'usa_gross_income' or 'worldwide_gross_income' ? -> integer ; i suppose worldwide_gross_income -->
-						<p id ="modal-content_long_description">long_description</p> <!--Le résumé du film : 'description' or 'long_description' ? -> string ; I suppose 'long_description'-->
-
-
-					</div>
-				</div> 
-
-
-
 				<p id="bestMovie_Summary">resume du film</p>
 			</div>
-			<img id="bestMovie_Picture" class = best-movie-container__movie-picture src="" alt="image du meilleur film" > 
+
+			<img id="bestMovie_Picture" class = best-movie-container__movie-picture src="" alt="image du meilleur film" > <!--Img rather than a <div> background for an easier JS interation -->
 		</div>
 
 
-
-		<!-- The Modal for carroussels pictures -->
-		<div id="CarrousselModalBox" class="modalWindow">
-	
-			<!-- Modal content -->
-			<div class="CarrousselModal-content">
-				<span class="CarrousselCloseTheModalSpan">&times;</span>
-
-				<img id ="CarrousselModal-content_movie-picture" src="image_de_film_factice_mini.png" alt="image de film"> <!--L’image de la pochette du film : 'image_url' -> url -->
-				<p id ="CarrousselModal-content_title">title</p> <!--Le Titre du film : 'title' -> string -->
-				<p id ="CarrousselModal-content_genres">genres</p> <!--Le genre complet du film : 'genres' -> [] -->
-				<p id ="CarrousselModal-content_date_published">date_published</p> <!--Sa date de sortie : 'date_published' -> string -->
-				<p id ="CarrousselModal-content_rated">rated</p> <!--Son Rated : 'rated' -> string -->
-				<p id ="CarrousselModal-content_imdb_score">imdb_score</p> <!--Son score Imdb : ''imdb_score' -> string -->
-				<p id ="CarrousselModal-content_directors">directors</p> <!--Son réalisateur : 'directors' -> [] -->
-				<p id ="CarrousselModal-content_actors">actors</p> <!--La liste des acteurs : 'actors' -> [] -->
-				<p id ="CarrousselModal-content_duration">duration</p> <!--Sa durée : 'duration' -> integer -->
-				<p id ="CarrousselModal-content_countries">countries</p> <!--Le pays d’origine : 'countries' -> [] -->
-				<p id ="CarrousselModal-content_worldwide_gross_income">worldwide_gross_income</p> <!--Le résultat au Box Office : 'usa_gross_income' or 'worldwide_gross_income' ? -> integer ; i suppose worldwide_gross_income -->
-				<p id ="CarrousselModal-content_long_description">long_description</p> <!--Le résumé du film : 'description' or 'long_description' ? -> string ; I suppose 'long_description'-->
-
-
-			</div>
-		</div> 
-
 		<section class="movies-section">
-			<h1>Films les mieux notés</h1>
+			<h1>Best movies (Imdb score)</h1>
 			<div class="movies-section__button_and_pictures">
 				<div id = "best-movie_button-left" class="button-left">
 					<img class="button-left-picture" src="leftCarrousselButton.png" alt="left button">
@@ -133,7 +57,7 @@
 
 
 		<section class="movies-section">
-			<h1>Categorie1</h1>
+			<h1 id="category1_title">Categorie1</h1>
 			<div class="movies-section__button_and_pictures">
 				<div id = "category1_button-left" class="button-left">
 					<img class="button-left-picture" src="leftCarrousselButton.png" alt="left button">
@@ -154,7 +78,7 @@
 
 
 		<section class="movies-section">
-			<h1>Categorie2</h1>
+			<h1 id="category2_title">Categorie2</h1>
 			<div class="movies-section__button_and_pictures">
 				<div id = "category2_button-left" class="button-left">
 					<img class="button-left-picture" src="leftCarrousselButton.png" alt="left button">
@@ -175,7 +99,7 @@
 
 
 		<section class="movies-section">
-			<h1>Categorie3</h1>
+			<h1 id="category3_title">Categorie3</h1>
 			<div class="movies-section__button_and_pictures">
 				<div id = "category3_button-left" class="button-left">
 					<img class="button-left-picture" src="leftCarrousselButton.png" alt="left button">
@@ -193,6 +117,54 @@
 				</div>
 			</div>
 		</section>
+
+
+		<!-- Source : https://www.w3schools.com/howto/howto_css_modals.asp -->
+		<!-- The Modal : BEST MOVIE-->
+		<div id="ModalBox" class="modalWindow">
+
+			<!-- Modal content -->
+			<div class="modal-content">
+				<span class="closeTheModalSpan">&times;</span>
+
+				<img id ="modal-content_movie-picture" src="image_de_film_factice_mini.png" alt="image de film"> <!--L’image de la pochette du film : 'image_url' -> url -->
+				<p id ="modal-content_title">title</p> <!--Le Titre du film : 'title' -> string -->
+				<p id ="modal-content_genres">genres</p> <!--Le genre complet du film : 'genres' -> [] -->
+				<p id ="modal-content_date_published">date_published</p> <!--Sa date de sortie : 'date_published' -> string -->
+				<p id ="modal-content_rated">rated</p> <!--Son Rated : 'rated' -> string -->
+				<p id ="modal-content_imdb_score">imdb_score</p> <!--Son score Imdb : ''imdb_score' -> string -->
+				<p id ="modal-content_directors">directors</p> <!--Son réalisateur : 'directors' -> [] -->
+				<p id ="modal-content_actors">actors</p> <!--La liste des acteurs : 'actors' -> [] -->
+				<p id ="modal-content_duration">duration</p> <!--Sa durée : 'duration' -> integer -->
+				<p id ="modal-content_countries">countries</p> <!--Le pays d’origine : 'countries' -> [] -->
+				<p id ="modal-content_worldwide_gross_income">worldwide_gross_income</p> <!--Le résultat au Box Office : 'usa_gross_income' or 'worldwide_gross_income' ? -> integer ; i suppose worldwide_gross_income -->
+				<p id ="modal-content_long_description">long_description</p> <!--Le résumé du film : 'description' or 'long_description' ? -> string ; I suppose 'long_description'-->
+			</div>
+		</div> 
+
+
+		<!-- Source : https://www.w3schools.com/howto/howto_css_modals.asp -->
+		<!-- The Modal for carroussels pictures -->
+		<div id="CarrousselModalBox" class="modalWindow">
+	
+			<!-- Modal content -->
+			<div class="CarrousselModal-content">
+				<span class="CarrousselCloseTheModalSpan">&times;</span>
+
+				<img id ="CarrousselModal-content_movie-picture" src="image_de_film_factice_mini.png" alt="image de film"> <!--L’image de la pochette du film : 'image_url' -> url -->
+				<p id ="CarrousselModal-content_title">title</p> <!--Le Titre du film : 'title' -> string -->
+				<p id ="CarrousselModal-content_genres">genres</p> <!--Le genre complet du film : 'genres' -> [] -->
+				<p id ="CarrousselModal-content_date_published">date_published</p> <!--Sa date de sortie : 'date_published' -> string -->
+				<p id ="CarrousselModal-content_rated">rated</p> <!--Son Rated : 'rated' -> string -->
+				<p id ="CarrousselModal-content_imdb_score">imdb_score</p> <!--Son score Imdb : ''imdb_score' -> string -->
+				<p id ="CarrousselModal-content_directors">directors</p> <!--Son réalisateur : 'directors' -> [] -->
+				<p id ="CarrousselModal-content_actors">actors</p> <!--La liste des acteurs : 'actors' -> [] -->
+				<p id ="CarrousselModal-content_duration">duration</p> <!--Sa durée : 'duration' -> integer -->
+				<p id ="CarrousselModal-content_countries">countries</p> <!--Le pays d’origine : 'countries' -> [] -->
+				<p id ="CarrousselModal-content_worldwide_gross_income">worldwide_gross_income</p> <!--Le résultat au Box Office : 'usa_gross_income' or 'worldwide_gross_income' ? -> integer ; i suppose worldwide_gross_income -->
+				<p id ="CarrousselModal-content_long_description">long_description</p> <!--Le résumé du film : 'description' or 'long_description' ? -> string ; I suppose 'long_description'-->
+			</div>
+		</div> 
 
 
 		<script type="text/javascript" src="./script.js"></script>
