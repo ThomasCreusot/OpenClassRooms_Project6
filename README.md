@@ -9,7 +9,7 @@ The present project is the sixth one of the training course *Python Application 
 The main goal is to develop an **web application** wich allows to **visualise a movie classification**.
 
 This application must:
-- get the movies data from the **API OCMovies-API** () with ajax requests
+- get the movies data from the **[API OCMovies-API](https://github.com/OpenClassrooms-Student-Center/OCMovies-API-EN-FR)** with ajax requests
 - display these data on a web interface :
 - - The best movie, according to the imdb score
 - - The category "Best movies": 7 bests movies (all categories combined)
