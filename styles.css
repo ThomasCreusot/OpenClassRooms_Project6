@@ -61,8 +61,8 @@ body
 header, .best-movie-container, .higher-rated-movies-section, .movies-section
 {
     width: 100%;
-    margin: 0 px;
-    padding: 0 px; 
+    margin: 0px;
+    padding: 0px; 
 
     /*Display borders for testing*/
     /*border-width: 10 px;*/
@@ -133,7 +133,7 @@ header
     /*background-position: right top;*/
     /*opacity: 75%;*/
 
-    border-width: 10 px;
+    border-width: 3px;
     border-color:  rgb(50,50,50);
     border-style: solid;
 
@@ -268,7 +268,7 @@ header
 
     background-color: rgb(10,10,10);
 
-    border-width: 10 px;
+    border-width: 5px;
     border-color:  rgb(10,10,10);
     border-style: solid;
 
@@ -280,7 +280,7 @@ header
     color: rgb(255, 255, 255);
     background-color: rgb(10,10,10);
 
-    border-width: 10 px;
+    border-width: 10px;
     border-color:  rgb(10,10,10);
     border-style: solid;
 

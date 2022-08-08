@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
 	<meta charset="utf-8">
@@ -14,24 +14,24 @@
 		<header>
 			<p class="logo">JustStreamIt</p>
 			<nav>
-				<a>Accueil</a>
-				<a>Catégories</a>
+				<a>Home</a>
+				<a>Categories</a>
 			</nav>
 		</header>
 
 
 		<div class="best-movie-container">
 			<div class="best-movie-container__movie-presentation-and-access"> 
-				<p id="bestMovie_Title">titre film</p>
+				<p id="bestMovie_Title">Movie title</p>
 
 				<!-- Source : https://www.w3schools.com/howto/howto_css_modals.asp -->
 				<!-- Trigger/Open The Modal -->
 				<button id="bestMovieModalButton">More information</button> 
 
-				<p id="bestMovie_Summary">resume du film</p>
+				<p id="bestMovie_Summary">Movie Summary</p>
 			</div>
 
-			<img id="bestMovie_Picture" class = best-movie-container__movie-picture src="" alt="image du meilleur film" > <!--Img rather than a <div> background for an easier JS interation -->
+			<img id="bestMovie_Picture" class = best-movie-container__movie-picture src="image_de_film_factice_mini.png" alt="Best movie picture" > <!--Img rather than a <div> background for an easier JS interation -->
 		</div>
 
 
@@ -43,10 +43,10 @@
 				</div>
 
 				<div class="movies-pictures-container">
-					<img class = movie-picture id="best-movie_picture0" src="image_de_film_factice_mini.png" alt="image de film">
-					<img class = movie-picture id="best-movie_picture1" src="image_de_film_factice_mini.png" alt="image de film">
-					<img class = movie-picture id="best-movie_picture2" src="image_de_film_factice_mini.png" alt="image de film">
-					<img class = movie-picture id="best-movie_picture3" src="image_de_film_factice_mini.png" alt="image de film">
+					<img class = movie-picture id="best-movie_picture0" src="image_de_film_factice_mini.png" alt="Movie picture">
+					<img class = movie-picture id="best-movie_picture1" src="image_de_film_factice_mini.png" alt="Movie picture">
+					<img class = movie-picture id="best-movie_picture2" src="image_de_film_factice_mini.png" alt="Movie picture">
+					<img class = movie-picture id="best-movie_picture3" src="image_de_film_factice_mini.png" alt="Movie picture">
 				</div>
 
 				<div id = "best-movie_button-right" class="button-right">
@@ -64,10 +64,10 @@
 				</div>
 
 				<div class="movies-pictures-container">
-					<img class = movie-picture id="category1_picture0" src="image_de_film_factice_mini.png" alt="image de film">
-					<img class = movie-picture id="category1_picture1" src="image_de_film_factice_mini.png" alt="image de film">
-					<img class = movie-picture id="category1_picture2" src="image_de_film_factice_mini.png" alt="image de film">
-					<img class = movie-picture id="category1_picture3" src="image_de_film_factice_mini.png" alt="image de film">
+					<img class = movie-picture id="category1_picture0" src="image_de_film_factice_mini.png" alt="Movie picture">
+					<img class = movie-picture id="category1_picture1" src="image_de_film_factice_mini.png" alt="Movie picture">
+					<img class = movie-picture id="category1_picture2" src="image_de_film_factice_mini.png" alt="Movie picture">
+					<img class = movie-picture id="category1_picture3" src="image_de_film_factice_mini.png" alt="Movie picture">
 				</div>
 
 				<div id = "category1_button-right" class="button-right">
@@ -85,10 +85,10 @@
 				</div>
 
 				<div class="movies-pictures-container">
-					<img class = movie-picture id="category2_picture0" src="image_de_film_factice_mini.png" alt="image de film">
-					<img class = movie-picture id="category2_picture1" src="image_de_film_factice_mini.png" alt="image de film">
-					<img class = movie-picture id="category2_picture2" src="image_de_film_factice_mini.png" alt="image de film">
-					<img class = movie-picture id="category2_picture3" src="image_de_film_factice_mini.png" alt="image de film">
+					<img class = movie-picture id="category2_picture0" src="image_de_film_factice_mini.png" alt="Movie picture">
+					<img class = movie-picture id="category2_picture1" src="image_de_film_factice_mini.png" alt="Movie picture">
+					<img class = movie-picture id="category2_picture2" src="image_de_film_factice_mini.png" alt="Movie picture">
+					<img class = movie-picture id="category2_picture3" src="image_de_film_factice_mini.png" alt="Movie picture">
 				</div>
 
 				<div id="category2_button-right" class="button-right">
@@ -106,10 +106,10 @@
 				</div>
 
 				<div class="movies-pictures-container">
-					<img class = movie-picture id="category3_picture0" src="image_de_film_factice_mini.png" alt="image de film">
-					<img class = movie-picture id="category3_picture1" src="image_de_film_factice_mini.png" alt="image de film">
-					<img class = movie-picture id="category3_picture2" src="image_de_film_factice_mini.png" alt="image de film">
-					<img class = movie-picture id="category3_picture3" src="image_de_film_factice_mini.png" alt="image de film">
+					<img class = movie-picture id="category3_picture0" src="image_de_film_factice_mini.png" alt="Movie picture">
+					<img class = movie-picture id="category3_picture1" src="image_de_film_factice_mini.png" alt="Movie picture">
+					<img class = movie-picture id="category3_picture2" src="image_de_film_factice_mini.png" alt="Movie picture">
+					<img class = movie-picture id="category3_picture3" src="image_de_film_factice_mini.png" alt="Movie picture">
 				</div>
 
 				<div id="category3_button-right" class="button-right">
@@ -127,7 +127,7 @@
 			<div class="modal-content">
 				<span class="closeTheModalSpan">&times;</span>
 
-				<img id ="modal-content_movie-picture" src="image_de_film_factice_mini.png" alt="image de film"> <!--L’image de la pochette du film : 'image_url' -> url -->
+				<img id ="modal-content_movie-picture" src="image_de_film_factice_mini.png" alt="Movie picture"> <!--L’image de la pochette du film : 'image_url' -> url -->
 				<p id ="modal-content_title">title</p> <!--Le Titre du film : 'title' -> string -->
 				<p id ="modal-content_genres">genres</p> <!--Le genre complet du film : 'genres' -> [] -->
 				<p id ="modal-content_date_published">date_published</p> <!--Sa date de sortie : 'date_published' -> string -->
@@ -151,7 +151,7 @@
 			<div class="CarrousselModal-content">
 				<span class="CarrousselCloseTheModalSpan">&times;</span>
 
-				<img id ="CarrousselModal-content_movie-picture" src="image_de_film_factice_mini.png" alt="image de film"> <!--L’image de la pochette du film : 'image_url' -> url -->
+				<img id ="CarrousselModal-content_movie-picture" src="image_de_film_factice_mini.png" alt="Movie picture"> <!--L’image de la pochette du film : 'image_url' -> url -->
 				<p id ="CarrousselModal-content_title">title</p> <!--Le Titre du film : 'title' -> string -->
 				<p id ="CarrousselModal-content_genres">genres</p> <!--Le genre complet du film : 'genres' -> [] -->
 				<p id ="CarrousselModal-content_date_published">date_published</p> <!--Sa date de sortie : 'date_published' -> string -->
@@ -167,6 +167,6 @@
 		</div> 
 
 
-		<script type="text/javascript" src="./script.js"></script>
+		<script src="./script.js"></script> <!--W3C validator: The type attribute (type="text/javascript") is unnecessary for JavaScript resources.-->
 	</div>
 </body>
